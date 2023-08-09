@@ -38,7 +38,6 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        this.getConfig().options().copyDefaults();
         saveDefaultConfig();
 
         key = new NamespacedKey(this, "heartRecipeKey");
