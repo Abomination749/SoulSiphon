@@ -1,0 +1,105 @@
+
+#DO NOT CHANGE THIS!
+Version: 1.0
+
+
+#Before you reset all players health, make sure to reset your world and inventories first to protect against heart-duping!
+
+HRB: false
+
+
+#Base health is 10 hearts. use negative numbers to lower the starting health. Default: 0
+StartingHeartsModifier: 0
+
+#Should players lose hearts to non-player causes? Default: true
+OtherDeathsCount: true
+
+#Number of hearts to remove on death. Default: 1
+HeartsLostOnDeath: 1
+
+#Are heart items enabled? Default: true
+HeartsEnabled: true
+
+#Is the heart recipe enabled? HeartsEnabled must be set to true. Default: true
+HeartRecipeEnabled: true
+
+#Name of hearts.
+HeartName: "Heart"
+
+#Heart lore. Up to three lines.
+HeartLore:
+  - "Use this to increase your hearts!"
+  - ""
+  - ""
+  -
+  #Should hearts drop on death? If true, a heart item will drop. If false, the heart will automatically go to the killer. HeartsEnabled must be set to true. Default: false
+HeartsDropOnDeath: false
+
+#Should hearts drop from non-player deaths? HeartsEnabled and HeartsDropOnDeath must be set to true. Default: false
+OtherDeathsDrop: false
+
+#Should players be able to craft beacons with hearts? Only enable if you know what you are doing! Default: false
+CraftBeaconWithHearts: false
+
+#Should players be banned, put in spectator, or put in adventure mode when they run out of hearts? Default: spectator
+#Players who are put in adventure mode may be able to obtain new hearts!
+#Perameters: spectator, adventure, banned.
+DeathOutcome: "spectator"
+
+#Can players use the /withdraw command? HeartsEnabled must be set to true. Default: true
+CanWithdraw: true
+
+#Should hearts drop to the ground if the withdraw command is used while their inventory is full? CanWithdraw must be set to true. Default: true
+HeartDropsIfFull: true
+
+#Message Prefix.
+Prefix: "[SoulSiphon]"
+
+#Is the final death message enabled? Default: true
+DeathMessageEnabled: true
+
+#Should players be completely reset if /resetlives is used on them and they are still alive? This will affect inventory, location, experience, and enderchests. Default: true
+
+FullResetCommand: true
+
+#Should enderchest be reset when a player completely dies? Default: true
+
+EnderchestOnLoss: true
+
+#Death message prefix.
+DeathMessagePrefix: "[SoulSiphon]"
+
+#Death message.
+DeathMessage: "has lost their last heart!"
+
+#Custom crafting recipe for hearts.
+#Set keys as letters, assign a material to them, and place them into the custom recipe. Z defaults to air. Requires a full server restart. E is missing due to event handling.
+CRKeys:
+  a: "DIAMOND"
+  b: "TOTEM_OF_UNDYING"
+  c:
+  d:
+  f:
+  g:
+  h:
+  i:
+  j:
+
+#Only change the letters in the below recipe!
+
+
+#World spawnpoint where revived players will spawn.
+#Make sure to set this, as it does not check for safety.
+#This does not set the worldspawn, just where players who were revived will be spawned so that they don't spawn where they last were.
+ReviveSpawn:
+  world: world
+  x: 0
+  y: 60
+  z: 0
+
+#This is a list of all currently banned players due to health.
+#This will update automatically if you use the /resetlives command!
+#Do not touch unless you know what you are doing!
+#Saves in UUIDs, notch is just there for fun.
+PlayerBanList:
+  - "notch"
