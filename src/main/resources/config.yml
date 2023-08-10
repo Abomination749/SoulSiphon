@@ -31,7 +31,7 @@ HeartsAsHeads: true
 
 
 #The source of the skin hearts use. This must be a playername. HeartsAsHeads and HeartsEnabled must be set to true.
-HeartSource:
+HeartSource:  "speed_Monster1"
 
 #Heart lore. Up to three lines.
 HeartLore:
