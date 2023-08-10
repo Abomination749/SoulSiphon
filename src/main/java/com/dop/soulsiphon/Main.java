@@ -8,12 +8,14 @@ import com.dop.soulsiphon.Commands.SetReviveSpawnCMD;
 import com.dop.soulsiphon.Commands.Withdraw.WithdrawCMD;
 import com.dop.soulsiphon.Commands.Withdraw.WithdrawTAB;
 import com.dop.soulsiphon.Listeners.*;
+import com.dop.soulsiphon.Utils.UUIDfetcher;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -27,7 +29,7 @@ public class Main extends JavaPlugin {
     public File heartslist = new File(getDataFolder(), "heartslist.yml");
     public YamlConfiguration modifyhl = YamlConfiguration.loadConfiguration(heartslist);
     public String prefix = getConfig().getString("Prefix");
-    public ItemStack heart = new ItemStack(Material.NETHER_STAR);
+    public ItemStack heart;
 
     public ShapedRecipe heartrecipe;
 
@@ -37,6 +39,10 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        if(!getDataFolder().exists()) {
+            getDataFolder().mkdirs();
+        }
 
         saveDefaultConfig();
 
@@ -73,6 +79,22 @@ public class Main extends JavaPlugin {
         if (getConfig().getBoolean("HeartsEnabled")) {
 
             //Create heart item.
+            if (getConfig().getBoolean("HeartsAsHeads")) {
+                heart = new ItemStack(Material.PLAYER_HEAD);
+                SkullMeta heartskullmeta = (SkullMeta) heart.getItemMeta();
+                    UUIDfetcher UUIDfetcher = new UUIDfetcher(this);
+                    UUID skinUUID = UUID.fromString(UUIDfetcher.getUUID(getConfig().getString("HeartSource")));
+                    if (skinUUID != null) {
+
+                        OfflinePlayer headskinp = Bukkit.getOfflinePlayer(skinUUID);
+                        assert heartskullmeta != null;
+                        heartskullmeta.setOwningPlayer(headskinp);
+
+                    }
+
+            } else {
+                heart = new ItemStack(Material.NETHER_STAR);
+            }
             ItemMeta heartmeta = heart.getItemMeta();
             heartmeta.setDisplayName(ChatColor.GOLD + getConfig().getString("HeartName"));
             List<String> Lorelist = new ArrayList<String>();
