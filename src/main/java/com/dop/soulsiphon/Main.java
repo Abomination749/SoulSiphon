@@ -8,14 +8,13 @@ import com.dop.soulsiphon.Commands.SetReviveSpawnCMD;
 import com.dop.soulsiphon.Commands.Withdraw.WithdrawCMD;
 import com.dop.soulsiphon.Commands.Withdraw.WithdrawTAB;
 import com.dop.soulsiphon.Listeners.*;
-import com.dop.soulsiphon.Utils.UUIDfetcher;
+import com.dop.soulsiphon.Utils.HeartCreator;
+
 import org.bukkit.*;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -37,6 +36,9 @@ public class Main extends JavaPlugin {
 
     public NamespacedKey key;
 
+     public Configuration config;
+
+
     @Override
     public void onEnable() {
 
@@ -45,6 +47,7 @@ public class Main extends JavaPlugin {
         }
 
         saveDefaultConfig();
+        config = getConfig();
 
         key = new NamespacedKey(this, "heartRecipeKey");
 
@@ -76,88 +79,9 @@ public class Main extends JavaPlugin {
                 return;
             }
         }
-        if (getConfig().getBoolean("HeartsEnabled")) {
 
-            //Create heart item.
-            if (getConfig().getBoolean("HeartsAsHeads")) {
-                heart = new ItemStack(Material.PLAYER_HEAD);
-                SkullMeta heartskullmeta = (SkullMeta) heart.getItemMeta();
-                    UUIDfetcher UUIDfetcher = new UUIDfetcher(this);
-                    UUID skinUUID = UUID.fromString(UUIDfetcher.getUUID(getConfig().getString("HeartSource")));
-                    if (skinUUID != null) {
-
-                        OfflinePlayer headskinp = Bukkit.getOfflinePlayer(skinUUID);
-                        assert heartskullmeta != null;
-                        heartskullmeta.setOwningPlayer(headskinp);
-
-                    }
-
-            } else {
-                heart = new ItemStack(Material.NETHER_STAR);
-            }
-            ItemMeta heartmeta = heart.getItemMeta();
-            heartmeta.setDisplayName(ChatColor.GOLD + getConfig().getString("HeartName"));
-            List<String> Lorelist = new ArrayList<String>();
-            if (getConfig().getStringList("HeartLore").get(0) != null) {
-                Lorelist.add(getConfig().getStringList("HeartLore").get(0));
-            }
-            if (getConfig().getStringList("HeartLore").get(1) != null) {
-                Lorelist.add(getConfig().getStringList("HeartLore").get(1));
-            }
-            if (getConfig().getStringList("HeartLore").get(2) != null) {
-                Lorelist.add(getConfig().getStringList("HeartLore").get(2));
-            }
-            if (Lorelist.get(0) != null) {
-                heartmeta.setLore(Lorelist);
-            }
-            heart.setItemMeta(heartmeta);
-            heartrecipe = new ShapedRecipe(heart);
-            if (getConfig().getBoolean("HeartsEnabled") && !getConfig().getBoolean("HRB")) {
-                heartrecipe.shape("aaa", "aba", "aaa");
-                heartrecipe.setIngredient('b', Material.TOTEM_OF_UNDYING);
-                heartrecipe.setIngredient('a', Material.DIAMOND);
-                getConfig().set("CRKeys.a", Material.TOTEM_OF_UNDYING.toString());
-                getConfig().set("CRKeys.b", Material.DIAMOND.toString());
-                getConfig().set("HRB", true);
-                saveConfig();
-                recipechangetoggle = false;
-
-
-            } else {
-
-                if (recipechangetoggle) {
-
-                    ItemStack a = (ItemStack) getConfig().get("CRKeys.a");
-                    ItemStack b = (ItemStack) getConfig().get("CRKeys.b");
-                    ItemStack c = (ItemStack) getConfig().get("CRKeys.c");
-                    ItemStack d = (ItemStack) getConfig().get("CRKeys.d");
-                    ItemStack f = (ItemStack) getConfig().get("CRKeys.f");
-                    ItemStack g = (ItemStack) getConfig().get("CRKeys.g");
-                    ItemStack h = (ItemStack) getConfig().get("CRKeys.h");
-                    ItemStack i = (ItemStack) getConfig().get("CRKeys.i");
-                    ItemStack j = (ItemStack) getConfig().get("CRKeys.j");
-                    heartrecipe.shape("abc", "dfg", "hij");
-
-                    heartrecipe.setIngredient('a', a != null ? new RecipeChoice.ExactChoice(a) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    heartrecipe.setIngredient('b', b != null ? new RecipeChoice.ExactChoice(b) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    heartrecipe.setIngredient('c', c != null ? new RecipeChoice.ExactChoice(c) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    heartrecipe.setIngredient('d', d != null ? new RecipeChoice.ExactChoice(d) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    heartrecipe.setIngredient('f', f != null ? new RecipeChoice.ExactChoice(f) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    heartrecipe.setIngredient('g', g != null ? new RecipeChoice.ExactChoice(g) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    heartrecipe.setIngredient('h', h != null ? new RecipeChoice.ExactChoice(h) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    heartrecipe.setIngredient('i', i != null ? new RecipeChoice.ExactChoice(i) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    heartrecipe.setIngredient('j', j != null ? new RecipeChoice.ExactChoice(j) : new RecipeChoice.MaterialChoice(Material.AIR));
-
-
-
-
-                }
-
-            }
-
-
-        }
-
+        HeartCreator heartCreator = new HeartCreator(this);
+        heartCreator.HeartGen();
 
     }
 
