@@ -39,7 +39,7 @@ public class OnPlayerClick implements Listener {
     @EventHandler
     public void PlayerClick(InventoryClickEvent e) {
 
-        if (e.getView().getTitle().equals(ChatColor.AQUA.toString() + "Recipe GUI") && main.getConfig().getBoolean("HeartsEnabled") && main.getConfig().getBoolean("HeartRecipeEnabled")) {
+        if (e.getView().getTitle().equals(ChatColor.AQUA.toString() + "Recipe GUI") && main.config.getBoolean("HeartsEnabled") && main.config.getBoolean("HeartRecipeEnabled")) {
 
             if (e.getRawSlot() == 11 ||e.getRawSlot() == 12 || e.getRawSlot() == 13 || e.getRawSlot() == 20 || e.getRawSlot() == 21 || e.getRawSlot() == 22 || e.getRawSlot() == 29 || e.getRawSlot() == 30 || e.getRawSlot() == 31 || e.getRawSlot() == 44) {
 
@@ -109,15 +109,15 @@ public class OnPlayerClick implements Listener {
                         main.heartrecipe.setIngredient('h', h != null ? new RecipeChoice.ExactChoice(h) : new RecipeChoice.MaterialChoice(Material.AIR));
                         main.heartrecipe.setIngredient('i', i != null ? new RecipeChoice.ExactChoice(i) : new RecipeChoice.MaterialChoice(Material.AIR));
                         main.heartrecipe.setIngredient('j', j != null ? new RecipeChoice.ExactChoice(j) : new RecipeChoice.MaterialChoice(Material.AIR));
-                        if (a != null) {main.getConfig().set("CRKeys.a", a.toString());}
-                        if (b != null) {main.getConfig().set("CRKeys.b", b.toString());}
-                        if (c != null) {main.getConfig().set("CRKeys.c", c.toString());}
-                        if (d != null) {main.getConfig().set("CRKeys.d", d.toString());}
-                        if (f != null) {main.getConfig().set("CRKeys.f", f.toString());}
-                        if (g != null) {main.getConfig().set("CRKeys.g", g.toString());}
-                        if (h != null) {main.getConfig().set("CRKeys.h", h.toString());}
-                        if (i != null) {main.getConfig().set("CRKeys.i", i.toString());}
-                        if (j != null) {main.getConfig().set("CRKeys.j", j.toString());}
+                        if (a != null) {main.config.set("CRKeys.a", a.toString());}
+                        if (b != null) {main.config.set("CRKeys.b", b.toString());}
+                        if (c != null) {main.config.set("CRKeys.c", c.toString());}
+                        if (d != null) {main.config.set("CRKeys.d", d.toString());}
+                        if (f != null) {main.config.set("CRKeys.f", f.toString());}
+                        if (g != null) {main.config.set("CRKeys.g", g.toString());}
+                        if (h != null) {main.config.set("CRKeys.h", h.toString());}
+                        if (i != null) {main.config.set("CRKeys.i", i.toString());}
+                        if (j != null) {main.config.set("CRKeys.j", j.toString());}
 
 
                         main.recipechangetoggle = true;

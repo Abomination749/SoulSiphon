@@ -49,10 +49,10 @@ public class AdminCMD implements CommandExecutor {
                     if (player.hasPermission("soulsiphon.setrespawnpoint")) {
                         Location location = player.getLocation();
 
-                        main.getConfig().set("ReviveSpawn.x", location.getX());
-                        main.getConfig().set("ReviveSpawn.y", location.getY());
-                        main.getConfig().set("ReviveSpawn.z", location.getZ());
-                        main.getConfig().set("ReviveSpawn.world", location.getWorld().getName());
+                        main.config.set("ReviveSpawn.x", location.getX());
+                        main.config.set("ReviveSpawn.y", location.getY());
+                        main.config.set("ReviveSpawn.z", location.getZ());
+                        main.config.set("ReviveSpawn.world", location.getWorld().getName());
                         main.saveConfig();
                         main.reloadConfig();
                         player.sendMessage(main.prefix + " Spawn set to " + location.getX() + " " + location.getY() + " " + location.getZ() + " in world " + location.getWorld().getName());
@@ -70,7 +70,7 @@ public class AdminCMD implements CommandExecutor {
                     if (commandSender.hasPermission("soulsteal.reload")) {
                         main.reloadConfig();
                         commandSender.sendMessage(main.prefix + " Config reloaded!");
-                        if (main.getConfig().getBoolean("HeartRecipeEnabled") && main.getConfig().getBoolean("HeartsEnabled")) {
+                        if (main.config.getBoolean("HeartRecipeEnabled") && main.config.getBoolean("HeartsEnabled")) {
 
                             main.heartrecipe.setCategory(CraftingBookCategory.MISC);
                             Bukkit.addRecipe(main.heartrecipe);
@@ -86,7 +86,7 @@ public class AdminCMD implements CommandExecutor {
                 } else {
                     System.out.println(main.prefix + " Config reloaded!");
                     main.reloadConfig();
-                    if (main.getConfig().getBoolean("HeartRecipeEnabled") && main.getConfig().getBoolean("HeartsEnabled")) {
+                    if (main.config.getBoolean("HeartRecipeEnabled") && main.config.getBoolean("HeartsEnabled")) {
 
                         main.heartrecipe.setCategory(CraftingBookCategory.MISC);
                         Bukkit.addRecipe(main.heartrecipe);
@@ -270,13 +270,13 @@ public class AdminCMD implements CommandExecutor {
                     if (args[2].equalsIgnoreCase("true")|| args[2].equalsIgnoreCase("false")) {
 
                         boolean value = Boolean.parseBoolean(args[2]);
-                        main.getConfig().set(key, value);
+                        main.config.set(key, value);
                         main.saveConfig();
 
                     } else if (isInteger(args[2])) {
 
                         int value = Integer.parseInt(args[2]);
-                        main.getConfig().set(key, value);
+                        main.config.set(key, value);
                         main.saveConfig();
 
 
@@ -284,7 +284,7 @@ public class AdminCMD implements CommandExecutor {
                     } else {
 
                         String value = args[2];
-                        main.getConfig().set(key, value);
+                        main.config.set(key, value);
                         main.saveConfig();
 
 

@@ -54,7 +54,7 @@ public class WithdrawCMD implements CommandExecutor {
                 }
 
 
-                if (main.getConfig().getBoolean("HeartsEnabled") && main.getConfig().getBoolean("CanWithdraw")) {
+                if (main.config.getBoolean("HeartsEnabled") && main.config.getBoolean("CanWithdraw")) {
 
                     if (health.get(player.getUniqueId()) > 2 * x) {
                         if (player.getInventory().firstEmpty() != -1) {
@@ -67,7 +67,7 @@ public class WithdrawCMD implements CommandExecutor {
 
                             }
 
-                        } else if (main.getConfig().getBoolean("HeartDropsIfFull")) {
+                        } else if (main.config.getBoolean("HeartDropsIfFull")) {
                             health.put(player.getUniqueId(), health.get(player.getUniqueId()) - 2 * x);
                             player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health.get(player.getUniqueId()));
                             for (int i = 0; i < x; i++) {

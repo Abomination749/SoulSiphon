@@ -24,10 +24,10 @@ public class SetReviveSpawnCMD implements CommandExecutor {
             if (player.hasPermission("soulsiphon.setrespawnpoint")) {
                 Location location = player.getLocation();
 
-                main.getConfig().set("ReviveSpawn.x", location.getX());
-                main.getConfig().set("ReviveSpawn.y", location.getY());
-                main.getConfig().set("ReviveSpawn.z", location.getZ());
-                main.getConfig().set("ReviveSpawn.world", location.getWorld().getName());
+                main.config.set("ReviveSpawn.x", location.getX());
+                main.config.set("ReviveSpawn.y", location.getY());
+                main.config.set("ReviveSpawn.z", location.getZ());
+                main.config.set("ReviveSpawn.world", location.getWorld().getName());
                 main.saveConfig();
                 main.reloadConfig();
                 player.sendMessage(main.prefix + " Spawn set to " + location.getX() + " " + location.getY() + " " + location.getZ() + " in world " + location.getWorld().getName());

@@ -29,11 +29,11 @@ public class ResetLivesCMD implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 
-        spawn = new Location((World) Bukkit.getWorld(main.getConfig().get("ReviveSpawn.world").toString()), (Double) main.getConfig().getDouble("ReviveSpawn.x"), (Double) main.getConfig().getDouble("ReviveSpawn.y"), (Double) main.getConfig().getDouble("ReviveSpawn.z"));
+        spawn = new Location((World) Bukkit.getWorld(main.config.get("ReviveSpawn.world").toString()), (Double) main.config.getDouble("ReviveSpawn.x"), (Double) main.config.getDouble("ReviveSpawn.y"), (Double) main.config.getDouble("ReviveSpawn.z"));
         if (commandSender.hasPermission("soulsteal.resetlives") || !(commandSender instanceof Player))
             if (args.length == 1) {
                 if (Bukkit.getPlayer(args[0]) != null && !args[0].equals("all")) {
-                    if (args[0].equals("all") || main.getConfig().getStringList("PlayerBanList").contains(Bukkit.getPlayer(args[0]).getUniqueId().toString()) || main.getConfig().getStringList("PlayerBanList").contains(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString())) {
+                    if (args[0].equals("all") || main.config.getStringList("PlayerBanList").contains(Bukkit.getPlayer(args[0]).getUniqueId().toString()) || main.config.getStringList("PlayerBanList").contains(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString())) {
 
                         System.out.println(prefix + " Arguments are valid.");
 
@@ -46,7 +46,7 @@ public class ResetLivesCMD implements CommandExecutor {
 
                                     main.health.put(p.getUniqueId(), main.startingmaxhealth);
                                     commandSender.sendMessage(prefix + " Reset player's hearts!");
-                                    main.getConfig().getStringList("PlayerBanList").remove(p.getUniqueId().toString());
+                                    main.config.getStringList("PlayerBanList").remove(p.getUniqueId().toString());
                                     p.setGameMode(GameMode.SURVIVAL);
                                     p.teleport(spawn);
                                     p.sendMessage(prefix + " Your lives have been reset!");
@@ -67,7 +67,7 @@ public class ResetLivesCMD implements CommandExecutor {
 
                                 main.health.put(Bukkit.getPlayer(args[0]).getUniqueId(), main.startingmaxhealth);
                                 commandSender.sendMessage(prefix + " Reset player's hearts!");
-                                main.getConfig().getStringList("PlayerBanList").remove(p.getUniqueId().toString());
+                                main.config.getStringList("PlayerBanList").remove(p.getUniqueId().toString());
                                 p.setGameMode(GameMode.SURVIVAL);
                                 p.teleport(spawn);
                                 main.saveConfig();
@@ -88,7 +88,7 @@ public class ResetLivesCMD implements CommandExecutor {
                             Player player = Bukkit.getPlayer(args[0]);
                             player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(main.startingmaxhealth);
 
-                            if (main.getConfig().getBoolean("FullResetCommand")) {
+                            if (main.config.getBoolean("FullResetCommand")) {
 
                                 player.teleport(spawn);
                                 player.getInventory().clear();
@@ -109,10 +109,10 @@ public class ResetLivesCMD implements CommandExecutor {
                         main.heartslist.delete();
 
 
-                        for (int i = 0; i < main.getConfig().getStringList("PlayerBanList").size(); i++) {
+                        for (int i = 0; i < main.config.getStringList("PlayerBanList").size(); i++) {
 
                             for (Player o : Bukkit.getOnlinePlayers()) {
-                                if (main.getConfig().getStringList("PlayerBanList").get(i).equals(o.getUniqueId().toString())) {
+                                if (main.config.getStringList("PlayerBanList").get(i).equals(o.getUniqueId().toString())) {
 
                                     o.setGameMode(GameMode.SURVIVAL);
                                     main.health.put(o.getUniqueId(), main.startingmaxhealth);
@@ -127,11 +127,11 @@ public class ResetLivesCMD implements CommandExecutor {
                             }
 
                             for (OfflinePlayer of : Bukkit.getOfflinePlayers()) {
-                                if (main.getConfig().getStringList("PlayerBanList").get(i).equals(of.getUniqueId().toString())) {
+                                if (main.config.getStringList("PlayerBanList").get(i).equals(of.getUniqueId().toString())) {
 
                                     main.health.put(of.getUniqueId(), main.startingmaxhealth);
                                     Bukkit.getBanList(BanList.Type.NAME).pardon(of.getName());
-                                    main.getConfig().getStringList("PlayerBanList").add(of.getUniqueId().toString() + "TCG");
+                                    main.config.getStringList("PlayerBanList").add(of.getUniqueId().toString() + "TCG");
                                     System.out.println(prefix + " reset hearts of" + of.getName());
 
                                 }
@@ -140,7 +140,7 @@ public class ResetLivesCMD implements CommandExecutor {
                             }
 
 
-                            main.getConfig().getStringList("PlayerBanList").remove(i);
+                            main.config.getStringList("PlayerBanList").remove(i);
 
 
                         }
@@ -159,13 +159,13 @@ public class ResetLivesCMD implements CommandExecutor {
                     main.reloadConfig();
                 } else {
 
-                    if (Bukkit.getOfflinePlayer(args[0]) != null && main.getConfig().getStringList("PlayerBanList").contains(Bukkit.getOfflinePlayer(args[0]).getUniqueId())) {
+                    if (Bukkit.getOfflinePlayer(args[0]) != null && main.config.getStringList("PlayerBanList").contains(Bukkit.getOfflinePlayer(args[0]).getUniqueId())) {
 
                         OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
                         main.health.put(Bukkit.getPlayer(args[0]).getUniqueId(), main.startingmaxhealth);
                         commandSender.sendMessage(prefix + " Reset player's hearts!");
-                        main.getConfig().getStringList("PlayerBanList").remove(p.getUniqueId().toString());
-                        main.getConfig().getStringList("PlayerBanList").add(p.getUniqueId().toString() + "TCG");
+                        main.config.getStringList("PlayerBanList").remove(p.getUniqueId().toString());
+                        main.config.getStringList("PlayerBanList").add(p.getUniqueId().toString() + "TCG");
                         main.saveConfig();
 
 
@@ -174,7 +174,7 @@ public class ResetLivesCMD implements CommandExecutor {
                         OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
                         main.health.put(p.getUniqueId(), main.startingmaxhealth);
                         commandSender.sendMessage(prefix + " Reset player's hearts!");
-                        main.getConfig().getStringList("PlayerBanList").add(p.getUniqueId().toString() + "TCGfr");
+                        main.config.getStringList("PlayerBanList").add(p.getUniqueId().toString() + "TCGfr");
 
 
 

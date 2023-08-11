@@ -19,6 +19,7 @@ com\dop\soulsiphon\Bstats\Metrics$MetricsBase.class
 com\dop\soulsiphon\Listeners\OnPlayerDeath.class
 com\dop\soulsiphon\Listeners\OnPlayerCraft.class
 com\dop\soulsiphon\Bstats\Metrics$SimplePie.class
+com\dop\soulsiphon\Utils\HeartCreator.class
 com\dop\soulsiphon\Bstats\Metrics$AdvancedPie.class
 com\dop\soulsiphon\Bstats\Metrics$SimpleBarChart.class
 com\dop\soulsiphon\Commands\ResetLivesCMD.class

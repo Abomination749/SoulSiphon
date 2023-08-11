@@ -5,7 +5,7 @@ Version: 1.0
 
 #Before you reset all players health, make sure to reset your world and inventories first to protect against heart-duping!
 
-HRB: false
+HBR: false
 
 
 #Base health is 10 hearts. use negative numbers to lower the starting health. Default: 0
@@ -31,7 +31,7 @@ HeartsAsHeads: true
 
 
 #The source of the skin hearts use. This must be a playername. HeartsAsHeads and HeartsEnabled must be set to true.
-HeartSource:
+HeartSource:  "speed_Monster1"
 
 #Heart lore. Up to three lines.
 HeartLore:

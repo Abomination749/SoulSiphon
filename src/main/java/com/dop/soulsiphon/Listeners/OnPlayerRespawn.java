@@ -49,66 +49,54 @@ public class OnPlayerRespawn implements Listener {
 
         if (health.get(player.getUniqueId()) <= 0) {
 
-            if (main.getConfig().getBoolean("EnderchestOnLoss")) {
+            if (main.config.getBoolean("EnderchestOnLoss")) {
 
                 player.getEnderChest().clear();
 
             }
 
 
-            if (main.getConfig().getString("DeathOutcome").equals("spectator")) {
+            if (main.config.getString("DeathOutcome").equals("spectator")) {
                 player.setGameMode(GameMode.SPECTATOR);
                 player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
-                List<String> list = main.getConfig().getStringList("PlayerBanList");
+                List<String> list = main.config.getStringList("PlayerBanList");
                 list.add(player.getUniqueId().toString());
-                main.getConfig().set("PlayerBanList", list);
-                try {
-                    main.getConfig().save("config.yml");
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                main.reloadConfig();
-
-            } else if (main.getConfig().getString("DeathOutcome").equals("adventure")) {
+                main.config.set("PlayerBanList", list);
+                    main.saveConfig();
+            } else if (main.config.getString("DeathOutcome").equals("adventure")) {
 
                 player.setGameMode(GameMode.ADVENTURE);
                 player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
-                main.getConfig().getStringList("PlayerBanList").add(player.getUniqueId().toString());
-                try {
-                    main.getConfig().save("config.yml");
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                main.reloadConfig();
-
-            } else if (main.getConfig().getString("DeathOutcome").equals("banned")) {
+                main.config.getStringList("PlayerBanList").add(player.getUniqueId().toString());
+                    main.saveConfig();
+            } else if (main.config.getString("DeathOutcome").equals("banned")) {
 
                 Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), "You have run out of hearts!", null, "console");
                 player.kickPlayer("You ran out of hearts!");
-                List<String> list = main.getConfig().getStringList("PlayerBanList");
+                List<String> list = main.config.getStringList("PlayerBanList");
                 list.add(player.getUniqueId().toString());
-                main.getConfig().set("PlayerBanList", list);
+                main.config.set("PlayerBanList", list);
 
 
             } else {
 
-                System.out.println(prefix + " DeathOutcome not configured right! Returned: " + main.getConfig().getString("DeathOutcome") + "Should be spectator, adventure, or banned! Using spectator as default!");
+                System.out.println(prefix + " DeathOutcome not configured right! Returned: " + main.config.getString("DeathOutcome") + "Should be spectator, adventure, or banned! Using spectator as default!");
 
 
             }
 
             main.saveConfig();
             main.reloadConfig();
-            if (main.getConfig().getStringList("PlayerBanList").contains(player.getUniqueId().toString())) {
+            if (main.config.getStringList("PlayerBanList").contains(player.getUniqueId().toString())) {
                 System.out.println(prefix + " Player is in config!");
 
 
             } else {
                 System.out.println(prefix +" Trying to save player again...");
 
-                List<String> list = main.getConfig().getStringList("PlayerBanList");
+                List<String> list = main.config.getStringList("PlayerBanList");
                 list.add(player.getUniqueId().toString());
-                main.getConfig().set("PlayerBanList", list);
+                main.config.set("PlayerBanList", list);
                 main.saveConfig();
             }
             main.reloadConfig();

@@ -66,43 +66,43 @@ public class OnPlayerJoin implements Listener {
 
         if (main.health.get(player.getUniqueId()) <= 0) {
 
-            if (main.getConfig().getString("DeathOutcome").equals("spectator")) {
+            if (main.config.getString("DeathOutcome").equals("spectator")) {
 
                 player.setGameMode(GameMode.SPECTATOR);
                 player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
-                main.getConfig().getStringList("PlayerBanList").add(player.getUniqueId().toString());
+                main.config.getStringList("PlayerBanList").add(player.getUniqueId().toString());
 
-            } else if (main.getConfig().getString("DeathOutcome").equals("adventure")) {
+            } else if (main.config.getString("DeathOutcome").equals("adventure")) {
 
                 player.setGameMode(GameMode.ADVENTURE);
                 player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
-                main.getConfig().getStringList("PlayerBanList").add(player.getUniqueId().toString());
+                main.config.getStringList("PlayerBanList").add(player.getUniqueId().toString());
 
-            } else if (main.getConfig().getString("DeathOutcome").equals("banned")) {
+            } else if (main.config.getString("DeathOutcome").equals("banned")) {
 
                 Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), prefix + " You have run out of hearts!", null, "console");
                 player.kickPlayer(prefix + " You ran out of hearts!");
-                main.getConfig().getStringList("PlayerBanList").add(player.getUniqueId().toString());
+                main.config.getStringList("PlayerBanList").add(player.getUniqueId().toString());
 
             } else {
 
-                System.out.println(prefix + " DeathOutcome not configured right! Returned: " + main.getConfig().getString("DeathOutcome") + " Should be spectator, adventure, or banned! Using spectator as default!");
+                System.out.println(prefix + " DeathOutcome not configured right! Returned: " + main.config.getString("DeathOutcome") + " Should be spectator, adventure, or banned! Using spectator as default!");
 
 
             }
 
-        } else if (main.getConfig().getStringList("PlayerBanList").contains(player.getUniqueId().toString() + "TCG")) {
+        } else if (main.config.getStringList("PlayerBanList").contains(player.getUniqueId().toString() + "TCG")) {
 
             player.setGameMode(GameMode.SURVIVAL);
-            player.teleport(new Location((World) Bukkit.getWorld(main.getConfig().get("ReviveSpawn.world").toString()), (Double) main.getConfig().getDouble("ReviveSpawn.x"), (Double) main.getConfig().getDouble("ReviveSpawn.y"), (Double) main.getConfig().getDouble("ReviveSpawn.z")));
+            player.teleport(new Location((World) Bukkit.getWorld(main.config.get("ReviveSpawn.world").toString()), (Double) main.config.getDouble("ReviveSpawn.x"), (Double) main.config.getDouble("ReviveSpawn.y"), (Double) main.config.getDouble("ReviveSpawn.z")));
 
-        } else if (main.getConfig().getStringList("PlayerBanList").contains(player.getUniqueId().toString() + "TCGfr")) {
+        } else if (main.config.getStringList("PlayerBanList").contains(player.getUniqueId().toString() + "TCGfr")) {
 
             player.setGameMode(GameMode.SURVIVAL);
-            player.teleport(new Location((World) Bukkit.getWorld(main.getConfig().get("ReviveSpawn.world").toString()), (Double) main.getConfig().getDouble("ReviveSpawn.x"), (Double) main.getConfig().getDouble("ReviveSpawn.y"), (Double) main.getConfig().getDouble("ReviveSpawn.z")));
+            player.teleport(new Location((World) Bukkit.getWorld(main.config.get("ReviveSpawn.world").toString()), (Double) main.config.getDouble("ReviveSpawn.x"), (Double) main.config.getDouble("ReviveSpawn.y"), (Double) main.config.getDouble("ReviveSpawn.z")));
 
-            if (main.getConfig().getBoolean("FullResetCommand")) {
-                Location spawn = new Location((World) Bukkit.getWorld(main.getConfig().get("ReviveSpawn.world").toString()), (Double) main.getConfig().getDouble("ReviveSpawn.x"), (Double) main.getConfig().getDouble("ReviveSpawn.y"), (Double) main.getConfig().getDouble("ReviveSpawn.z"));
+            if (main.config.getBoolean("FullResetCommand")) {
+                Location spawn = new Location((World) Bukkit.getWorld(main.config.get("ReviveSpawn.world").toString()), (Double) main.config.getDouble("ReviveSpawn.x"), (Double) main.config.getDouble("ReviveSpawn.y"), (Double) main.config.getDouble("ReviveSpawn.z"));
                 player.teleport(spawn);
                 player.getInventory().clear();
                 player.getEnderChest().clear();

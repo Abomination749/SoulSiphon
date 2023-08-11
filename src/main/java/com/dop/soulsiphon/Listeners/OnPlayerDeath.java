@@ -46,28 +46,28 @@ public class OnPlayerDeath implements Listener {
             if (e.getEntity().getKiller() instanceof Player) {
                 System.out.println(prefix + " Player " + e.getEntity().getName() + " has died to a player! Modifying healths...");
 
-                if (main.getConfig().getBoolean("HeartsDropOnDeath") && main.getConfig().getBoolean("HeartsEnabled")) {
+                if (main.config.getBoolean("HeartsDropOnDeath") && main.config.getBoolean("HeartsEnabled")) {
 
                     e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), heart);
 
                 } else {
                     Player killer = e.getEntity().getKiller();
-                    health.put(killer.getUniqueId(), health.get(killer.getUniqueId()) + (main.getConfig().getInt("HeartsLostOnDeath") * 2));
+                    health.put(killer.getUniqueId(), health.get(killer.getUniqueId()) + (main.config.getInt("HeartsLostOnDeath") * 2));
                     killer.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health.get(killer.getUniqueId()));
 
                     Player player = ((Player) e.getEntity()).getPlayer();
-                    health.put(player.getUniqueId(), health.get(player.getUniqueId()) - (main.getConfig().getInt("HeartsLostOnDeath") * 2));
+                    health.put(player.getUniqueId(), health.get(player.getUniqueId()) - (main.config.getInt("HeartsLostOnDeath") * 2));
                     System.out.println(prefix + " Player " + e.getEntity().getName() + " and " + e.getEntity().getKiller() + "'s healths have been modified!");
                     if (health.get(player.getUniqueId()).equals(0)) {
 
-                        if (main.getConfig().getBoolean("EnderchestOnLoss")) {
+                        if (main.config.getBoolean("EnderchestOnLoss")) {
 
                             player.getEnderChest().clear();
 
                         }
 
-                        if (main.getConfig().getBoolean("DeathMessageEnabled")) {
-                            e.setDeathMessage(main.getConfig().getString("DeathMessagePrefix") + " " + player.getDisplayName() + " " + main.getConfig().getString("DeathMessage"));
+                        if (main.config.getBoolean("DeathMessageEnabled")) {
+                            e.setDeathMessage(main.config.getString("DeathMessagePrefix") + " " + player.getDisplayName() + " " + main.config.getString("DeathMessage"));
                         }
 
 
@@ -75,29 +75,29 @@ public class OnPlayerDeath implements Listener {
                 }
             } else {
                 System.out.println(prefix + " Player " + e.getEntity() + " has died to a non-player cause! Checking config...");
-                if (main.getConfig().getBoolean("OtherDeathsCount")) {
+                if (main.config.getBoolean("OtherDeathsCount")) {
 
                     if (health.get(e.getEntity().getUniqueId()).equals(0)) {
 
-                        if (main.getConfig().getBoolean("EnderchestOnLoss")) {
+                        if (main.config.getBoolean("EnderchestOnLoss")) {
 
                             e.getEntity().getEnderChest().clear();
 
                         }
 
-                        if (main.getConfig().getBoolean("DeathMessageEnabled")) {
-                            e.setDeathMessage(main.getConfig().getString("DeathMessagePrefix") + " " + e.getEntity().getDisplayName() + " " + main.getConfig().getString("DeathMessage"));
+                        if (main.config.getBoolean("DeathMessageEnabled")) {
+                            e.setDeathMessage(main.config.getString("DeathMessagePrefix") + " " + e.getEntity().getDisplayName() + " " + main.config.getString("DeathMessage"));
                         }
 
 
                     }
 
 
-                    if (main.getConfig().getBoolean("HeartsDropOnDeath") && main.getConfig().getBoolean("HeartsEnabled") && main.getConfig().getBoolean("OtherDeathsDrop")) {
+                    if (main.config.getBoolean("HeartsDropOnDeath") && main.config.getBoolean("HeartsEnabled") && main.config.getBoolean("OtherDeathsDrop")) {
                         e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), heart);
                     } else {
                         Player player = ((Player) e.getEntity()).getPlayer();
-                        health.put(player.getUniqueId(), health.get(player.getUniqueId()) - (main.getConfig().getInt("HeartsLostOnDeath") * 2));
+                        health.put(player.getUniqueId(), health.get(player.getUniqueId()) - (main.config.getInt("HeartsLostOnDeath") * 2));
                         player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health.get(player.getUniqueId()));
                         System.out.println(prefix + " Player " + e.getEntity().getName() + "'s health has been modified!");
                     }
