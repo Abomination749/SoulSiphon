@@ -53,7 +53,11 @@ public class AdminCMD implements CommandExecutor {
                         main.config.set("ReviveSpawn.y", location.getY());
                         main.config.set("ReviveSpawn.z", location.getZ());
                         main.config.set("ReviveSpawn.world", location.getWorld().getName());
-                        main.saveConfig();
+                                                            try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
                         main.reloadConfig();
                         player.sendMessage(main.prefix + " Spawn set to " + location.getX() + " " + location.getY() + " " + location.getZ() + " in world " + location.getWorld().getName());
                     }
@@ -271,13 +275,21 @@ public class AdminCMD implements CommandExecutor {
 
                         boolean value = Boolean.parseBoolean(args[2]);
                         main.config.set(key, value);
-                        main.saveConfig();
+                                                            try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
 
                     } else if (isInteger(args[2])) {
 
                         int value = Integer.parseInt(args[2]);
                         main.config.set(key, value);
-                        main.saveConfig();
+                                                            try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
 
 
 
@@ -285,13 +297,21 @@ public class AdminCMD implements CommandExecutor {
 
                         String value = args[2];
                         main.config.set(key, value);
-                        main.saveConfig();
+                                                            try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
 
 
 
                     }
 
-                    main.saveConfig();
+                                                        try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
                     main.reloadConfig();
 
                     if (commandSender instanceof Player) {

@@ -6,14 +6,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class HeartCreator {
@@ -27,7 +31,7 @@ public class HeartCreator {
 
     }
 
-    public void HeartGen() {
+    public void HeartGen() throws IOException {
 
 
         if (main.config.getBoolean("HeartsEnabled")) {
@@ -76,11 +80,12 @@ public class HeartCreator {
                 main.heartrecipe.shape("aaa", "aba", "aaa");
                 main.heartrecipe.setIngredient('b', Material.TOTEM_OF_UNDYING);
                 main.heartrecipe.setIngredient('a', Material.DIAMOND);
-               // main.config.set("CRKeys.a", Material.TOTEM_OF_UNDYING.toString());
-               // main.config.set("CRKeys.b", Material.DIAMOND.toString());
+                main.config.set("CRKeys.a", Material.TOTEM_OF_UNDYING.toString());
+                main.config.set("CRKeys.b", Material.DIAMOND.toString());
                 main.config.set("HBR", true);
                 main.recipechangetoggle = false;
-                main.saveConfig();
+                System.out.println("attempting to save!");
+                main.config.save("configuration.yml");
 
 
             } else {

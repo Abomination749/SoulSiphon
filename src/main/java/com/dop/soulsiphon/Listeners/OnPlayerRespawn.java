@@ -62,13 +62,21 @@ public class OnPlayerRespawn implements Listener {
                 List<String> list = main.config.getStringList("PlayerBanList");
                 list.add(player.getUniqueId().toString());
                 main.config.set("PlayerBanList", list);
-                    main.saveConfig();
+                                                        try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException x) {
+                                        throw new RuntimeException(x);
+                                    }
             } else if (main.config.getString("DeathOutcome").equals("adventure")) {
 
                 player.setGameMode(GameMode.ADVENTURE);
                 player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
                 main.config.getStringList("PlayerBanList").add(player.getUniqueId().toString());
-                    main.saveConfig();
+                                                        try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException x) {
+                                        throw new RuntimeException(x);
+                                    }
             } else if (main.config.getString("DeathOutcome").equals("banned")) {
 
                 Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), "You have run out of hearts!", null, "console");
@@ -85,7 +93,11 @@ public class OnPlayerRespawn implements Listener {
 
             }
 
-            main.saveConfig();
+                                                try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException x) {
+                                        throw new RuntimeException(x);
+                                    }
             main.reloadConfig();
             if (main.config.getStringList("PlayerBanList").contains(player.getUniqueId().toString())) {
                 System.out.println(prefix + " Player is in config!");
@@ -97,7 +109,11 @@ public class OnPlayerRespawn implements Listener {
                 List<String> list = main.config.getStringList("PlayerBanList");
                 list.add(player.getUniqueId().toString());
                 main.config.set("PlayerBanList", list);
-                main.saveConfig();
+                                                    try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException x) {
+                                        throw new RuntimeException(x);
+                                    }
             }
             main.reloadConfig();
 

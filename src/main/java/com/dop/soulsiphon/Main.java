@@ -11,20 +11,24 @@ import com.dop.soulsiphon.Listeners.*;
 import com.dop.soulsiphon.Utils.HeartCreator;
 
 import org.bukkit.*;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Main extends JavaPlugin {
 
     public Map<UUID, Integer> health = new HashMap();
     public int startingmaxhealth = 20 + (getConfig().getInt("StartingHeartsModifier") * 2);
+
+    public File configfile = new File(getDataFolder(), "configuration.yml");
+
+    public YamlConfiguration config;
+
     public File heartslist = new File(getDataFolder(), "heartslist.yml");
     public YamlConfiguration modifyhl = YamlConfiguration.loadConfiguration(heartslist);
     public String prefix = getConfig().getString("Prefix");
@@ -36,18 +40,16 @@ public class Main extends JavaPlugin {
 
     public NamespacedKey key;
 
-     public Configuration config;
 
 
     @Override
     public void onEnable() {
 
+
         if(!getDataFolder().exists()) {
             getDataFolder().mkdirs();
         }
 
-        saveDefaultConfig();
-        config = getConfig();
 
         key = new NamespacedKey(this, "heartRecipeKey");
 
@@ -79,11 +81,63 @@ public class Main extends JavaPlugin {
                 return;
             }
         }
+        if (!configfile.exists()) {
+
+
+
+
+            try {
+                configfile.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Cannot load file 'Config'!");
+            }
+
+            copyDefaultConfig();
+
+        }
+        config = YamlConfiguration.loadConfiguration(configfile);
+
+
 
         HeartCreator heartCreator = new HeartCreator(this);
-        heartCreator.HeartGen();
+        try {
+            heartCreator.HeartGen();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
+
+
+    private void copyDefaultConfig() {
+        try {
+            // Open a reader to the default config.yml resource
+            Reader defaultConfigReader = new InputStreamReader(getResource("config.yml"), StandardCharsets.UTF_8);
+
+            // Create a writer for the new configuration.yml file
+            FileWriter configWriter = new FileWriter(new File(getDataFolder(), "configuration.yml"));
+
+            // Read from the default config and write to the new config
+            char[] buffer = new char[1024];
+            int bytesRead;
+            while ((bytesRead = defaultConfigReader.read(buffer)) != -1) {
+                configWriter.write(buffer, 0, bytesRead);
+            }
+
+            // Close the reader and writer
+            defaultConfigReader.close();
+            configWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
 
 
     @Override
@@ -108,3 +162,6 @@ public class Main extends JavaPlugin {
 
     }
 }
+
+
+

@@ -50,7 +50,11 @@ public class ResetLivesCMD implements CommandExecutor {
                                     p.setGameMode(GameMode.SURVIVAL);
                                     p.teleport(spawn);
                                     p.sendMessage(prefix + " Your lives have been reset!");
-                                    main.saveConfig();
+                                                                        try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
 
 
                                 } else if (!args[0].equals("all")) {
@@ -70,7 +74,11 @@ public class ResetLivesCMD implements CommandExecutor {
                                 main.config.getStringList("PlayerBanList").remove(p.getUniqueId().toString());
                                 p.setGameMode(GameMode.SURVIVAL);
                                 p.teleport(spawn);
-                                main.saveConfig();
+                                                                    try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
 
                             } else if (!args[0].equals("all")) {
 
@@ -148,7 +156,11 @@ public class ResetLivesCMD implements CommandExecutor {
                     }
 
 
-                    main.saveConfig();
+                                                        try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
 
                     try {
                         main.modifyhl.save("heartslist.yml");
@@ -166,7 +178,11 @@ public class ResetLivesCMD implements CommandExecutor {
                         commandSender.sendMessage(prefix + " Reset player's hearts!");
                         main.config.getStringList("PlayerBanList").remove(p.getUniqueId().toString());
                         main.config.getStringList("PlayerBanList").add(p.getUniqueId().toString() + "TCG");
-                        main.saveConfig();
+                                                            try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
 
 
                     } else if (Bukkit.getOfflinePlayer(args[0]) != null) {
@@ -184,7 +200,11 @@ public class ResetLivesCMD implements CommandExecutor {
 
                 }
             }
-        main.saveConfig();
+                                            try {
+                                        main.config.save("configuration.yml");
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
         main.reloadConfig();
 
         return false;
