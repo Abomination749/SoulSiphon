@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.io.IOException;
 
 public class SetReviveSpawnCMD implements CommandExecutor {
@@ -31,7 +32,7 @@ public class SetReviveSpawnCMD implements CommandExecutor {
                 main.config.set("ReviveSpawn.z", location.getZ());
                 main.config.set("ReviveSpawn.world", location.getWorld().getName());
                                                     try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }

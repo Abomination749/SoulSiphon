@@ -13,6 +13,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -85,7 +86,13 @@ public class HeartCreator {
                 main.config.set("HBR", true);
                 main.recipechangetoggle = false;
                 System.out.println("attempting to save!");
-                main.config.save("configuration.yml");
+                try {
+                    main.config.save(new File(main.getDataFolder(), "configuration.yml"));
+                    System.out.println("Configuration saved successfully!");
+                } catch (IOException e) {
+                    System.out.println("An error occurred while saving the configuration!");
+                    e.printStackTrace();
+                }
 
 
             } else {

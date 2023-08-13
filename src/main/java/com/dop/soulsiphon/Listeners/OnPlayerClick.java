@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
@@ -125,7 +126,7 @@ public class OnPlayerClick implements Listener {
                         main.heartrecipe.setCategory(CraftingBookCategory.MISC);
                         Bukkit.addRecipe(main.heartrecipe);
                         try {
-                            main.config.save("configuration.yml");
+                            main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                         } catch (IOException x) {
                             throw new RuntimeException(x);
                         }

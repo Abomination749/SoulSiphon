@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.Console;
+import java.io.File;
 import java.io.IOException;
 
 public class ResetLivesCMD implements CommandExecutor {
@@ -51,7 +52,7 @@ public class ResetLivesCMD implements CommandExecutor {
                                     p.teleport(spawn);
                                     p.sendMessage(prefix + " Your lives have been reset!");
                                                                         try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
@@ -75,7 +76,7 @@ public class ResetLivesCMD implements CommandExecutor {
                                 p.setGameMode(GameMode.SURVIVAL);
                                 p.teleport(spawn);
                                                                     try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
@@ -157,7 +158,7 @@ public class ResetLivesCMD implements CommandExecutor {
 
 
                                                         try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
@@ -179,7 +180,7 @@ public class ResetLivesCMD implements CommandExecutor {
                         main.config.getStringList("PlayerBanList").remove(p.getUniqueId().toString());
                         main.config.getStringList("PlayerBanList").add(p.getUniqueId().toString() + "TCG");
                                                             try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
@@ -201,7 +202,7 @@ public class ResetLivesCMD implements CommandExecutor {
                 }
             }
                                             try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }

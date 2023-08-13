@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +64,7 @@ public class OnPlayerRespawn implements Listener {
                 list.add(player.getUniqueId().toString());
                 main.config.set("PlayerBanList", list);
                                                         try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException x) {
                                         throw new RuntimeException(x);
                                     }
@@ -73,7 +74,7 @@ public class OnPlayerRespawn implements Listener {
                 player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
                 main.config.getStringList("PlayerBanList").add(player.getUniqueId().toString());
                                                         try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException x) {
                                         throw new RuntimeException(x);
                                     }
@@ -94,7 +95,7 @@ public class OnPlayerRespawn implements Listener {
             }
 
                                                 try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException x) {
                                         throw new RuntimeException(x);
                                     }
@@ -110,7 +111,7 @@ public class OnPlayerRespawn implements Listener {
                 list.add(player.getUniqueId().toString());
                 main.config.set("PlayerBanList", list);
                                                     try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException x) {
                                         throw new RuntimeException(x);
                                     }

@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
@@ -54,7 +55,7 @@ public class AdminCMD implements CommandExecutor {
                         main.config.set("ReviveSpawn.z", location.getZ());
                         main.config.set("ReviveSpawn.world", location.getWorld().getName());
                                                             try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
@@ -276,7 +277,7 @@ public class AdminCMD implements CommandExecutor {
                         boolean value = Boolean.parseBoolean(args[2]);
                         main.config.set(key, value);
                                                             try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
@@ -286,7 +287,7 @@ public class AdminCMD implements CommandExecutor {
                         int value = Integer.parseInt(args[2]);
                         main.config.set(key, value);
                                                             try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
@@ -298,7 +299,7 @@ public class AdminCMD implements CommandExecutor {
                         String value = args[2];
                         main.config.set(key, value);
                                                             try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
@@ -308,7 +309,7 @@ public class AdminCMD implements CommandExecutor {
                     }
 
                                                         try {
-                                        main.config.save("configuration.yml");
+                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
