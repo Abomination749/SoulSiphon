@@ -26,13 +26,6 @@ HeartRecipeEnabled: true
 #Name of hearts.
 HeartName: "Heart"
 
-#Should Heart items be heads? (If set to false, this will default them to Nether Stars.) HeartsEnabled must be set to true.
-HeartsAsHeads: true
-
-
-#The source of the skin hearts use. This must be a playername. HeartsAsHeads and HeartsEnabled must be set to true.
-HeartSource:  "speed_Monster1"
-
 #Heart lore. Up to three lines.
 HeartLore:
   - "Use this to increase your hearts!"

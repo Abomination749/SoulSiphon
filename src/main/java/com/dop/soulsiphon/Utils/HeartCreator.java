@@ -38,28 +38,7 @@ public class HeartCreator {
         if (main.config.getBoolean("HeartsEnabled")) {
 
             //Create heart item.
-            if (main.config.getBoolean("HeartsAsHeads")) {
-                main.heart = new ItemStack(Material.PLAYER_HEAD);
-                SkullMeta heartskullmeta = (SkullMeta) main.heart.getItemMeta();
-                if (main.config.getBoolean("HeartsFromURL")) {
-
-
-
-
-                } else {
-                    UUIDfetcher UUIDfetcher = new UUIDfetcher(main);
-                    UUID skinUUID = UUID.fromString(UUIDfetcher.getUUID(main.config.getString("HeartSource")));
-                    if (skinUUID != null) {
-
-                        OfflinePlayer headskinp = Bukkit.getOfflinePlayer(skinUUID);
-                        assert heartskullmeta != null;
-                        heartskullmeta.setOwningPlayer(headskinp);
-
-                    }
-                }
-            } else {
                 main.heart = new ItemStack(Material.NETHER_STAR);
-            }
             ItemMeta heartmeta = main.heart.getItemMeta();
             heartmeta.setDisplayName(ChatColor.GOLD + main.config.getString("HeartName"));
             List<String> Lorelist = new ArrayList<String>();
@@ -85,7 +64,7 @@ public class HeartCreator {
                 main.config.set("CRKeys.b", Material.DIAMOND.toString());
                 main.config.set("HBR", true);
                 main.recipechangetoggle = false;
-                System.out.println("attempting to save!");
+                Bukkit.addRecipe(main.heartrecipe);
                 try {
                     main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                     System.out.println("Configuration saved successfully!");
@@ -119,7 +98,7 @@ public class HeartCreator {
                     main.heartrecipe.setIngredient('h', h != null ? new RecipeChoice.ExactChoice(h) : new RecipeChoice.MaterialChoice(Material.AIR));
                     main.heartrecipe.setIngredient('i', i != null ? new RecipeChoice.ExactChoice(i) : new RecipeChoice.MaterialChoice(Material.AIR));
                     main.heartrecipe.setIngredient('j', j != null ? new RecipeChoice.ExactChoice(j) : new RecipeChoice.MaterialChoice(Material.AIR));
-
+                    Bukkit.addRecipe(main.heartrecipe);
 
 
 

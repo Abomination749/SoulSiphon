@@ -36,6 +36,8 @@ public class WithdrawCMD implements CommandExecutor {
 
             Player player = (Player) commandSender;
             if (player.hasPermission("soulsiphon.withdraw")) {
+                if (main.getConfig().getBoolean("HeartsAsHeads")) {
+                }
                 Map<UUID, Integer> health = main.health;
 
 
@@ -62,6 +64,8 @@ public class WithdrawCMD implements CommandExecutor {
                             player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health.get(player.getUniqueId()));
 
                             for (int i = 0; i < x; i++) {
+
+
 
                                 player.getInventory().addItem(main.heart);
 
