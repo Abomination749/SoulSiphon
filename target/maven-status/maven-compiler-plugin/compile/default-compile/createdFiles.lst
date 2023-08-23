@@ -7,6 +7,7 @@ com\dop\soulsiphon\Bstats\Metrics$1.class
 com\dop\soulsiphon\Bstats\Metrics$DrilldownPie.class
 com\dop\soulsiphon\Bstats\Metrics$AdvancedBarChart.class
 com\dop\soulsiphon\Bstats\Metrics$MultiLineChart.class
+com\dop\soulsiphon\Utils\DefaultConfig.class
 com\dop\soulsiphon\Bstats\Metrics$JsonObjectBuilder$JsonObject.class
 com\dop\soulsiphon\Bstats\Metrics.class
 com\dop\soulsiphon\Commands\SetReviveSpawnCMD.class

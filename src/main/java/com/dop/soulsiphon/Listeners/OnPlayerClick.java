@@ -8,13 +8,13 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.RecipeChoice;
-import org.bukkit.inventory.recipe.CraftingBookCategory;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class OnPlayerClick implements Listener {
@@ -42,91 +42,77 @@ public class OnPlayerClick implements Listener {
     public void PlayerClick(InventoryClickEvent e) {
 
         if (e.getView().getTitle().equals(ChatColor.AQUA.toString() + "Recipe GUI") && main.config.getBoolean("HeartsEnabled") && main.config.getBoolean("HeartRecipeEnabled")) {
-
             if (e.getRawSlot() == 11 ||e.getRawSlot() == 12 || e.getRawSlot() == 13 || e.getRawSlot() == 20 || e.getRawSlot() == 21 || e.getRawSlot() == 22 || e.getRawSlot() == 29 || e.getRawSlot() == 30 || e.getRawSlot() == 31 || e.getRawSlot() == 44) {
 
 
-                ItemStack a = null;
-                ItemStack b = null;
-                ItemStack c = null;
-                ItemStack d = null;
-                ItemStack f = null;
-                ItemStack g = null;
-                ItemStack h = null;
-                ItemStack i = null;
-                ItemStack j = null;
+                Material a = null;
+                Material b = null;
+                Material c = null;
+                Material d = null;
+                Material f = null;
+                Material g = null;
+                Material h = null;
+                Material i = null;
+                Material j = null;
 
 
+                    if (e.getRawSlot() == 44) {
 
 
-                switch (e.getRawSlot()) {
-
-                    case 11:
-                        a = e.getInventory().getItem(11);
-                        break;
-                    case 12:
-                        b = e.getInventory().getItem(12);
-                        break;
-                    case 13:
-                        c = e.getInventory().getItem(13);
-                        break;
-                    case 20:
-                        d = e.getInventory().getItem(20);
-                        break;
-                    case 21:
-                        f = e.getInventory().getItem(21);
-                        break;
-                    case 22:
-                        g = e.getInventory().getItem(22);
-                        break;
-                    case 29:
-                        h = e.getInventory().getItem(29);
-                        break;
-                    case 30:
-                        i = e.getInventory().getItem(30);
-                        break;
-                    case 31:
-                        j = e.getInventory().getItem(31);
-                        break;
-                    case 44:
+                        Inventory inv = e.getInventory();
+                        if (inv.getItem(11) != null) {a = Material.valueOf(Objects.requireNonNull(inv.getItem(11)).getType().toString());}
+                        if (inv.getItem(12) != null) {b = Material.valueOf(Objects.requireNonNull(inv.getItem(12)).getType().toString());}
+                        if (inv.getItem(13) != null) {c = Material.valueOf(Objects.requireNonNull(inv.getItem(13)).getType().toString());}
+                        if (inv.getItem(20) != null) {d = Material.valueOf(Objects.requireNonNull(inv.getItem(20)).getType().toString());}
+                        if (inv.getItem(21) != null) {f = Material.valueOf(Objects.requireNonNull(inv.getItem(21)).getType().toString());}
+                        if (inv.getItem(22) != null) {g = Material.valueOf(Objects.requireNonNull(inv.getItem(22)).getType().toString());}
+                        if (inv.getItem(29) != null) {h = Material.valueOf(Objects.requireNonNull(inv.getItem(29)).getType().toString());}
+                        if (inv.getItem(30) != null) {i = Material.valueOf(Objects.requireNonNull(inv.getItem(30)).getType().toString());}
+                        if (inv.getItem(31) != null) {j = Material.valueOf(Objects.requireNonNull(inv.getItem(31)).getType().toString());}
 
 
-                        if (Bukkit.getRecipe(main.key) != null) {
-                            for (org.bukkit.inventory.Recipe recipe : Bukkit.getRecipesFor(main.heartrecipe.getResult())) {
-                                if (recipe.getResult().isSimilar(main.heartrecipe.getResult())) {
-                                    Bukkit.getRecipesFor(main.heartrecipe.getResult()).remove(recipe);
-                                }
-                            }
-                        }
+                        if (a != null) {
+                            main.config.set("CRKeys.a", a.toString());
+                            System.out.println("a placed");
+                        } else {main.config.set("CRKeys.a", "air");}
+                        if (b != null) {
+                            main.config.set("CRKeys.b", b.toString());
+                            System.out.println("b placed");
+                        } else {main.config.set("CRKeys.b", "air");}
+                        if (c != null) {
+                            main.config.set("CRKeys.c", c.toString());
+                            System.out.println("c placed");
+                        } else {main.config.set("CRKeys.c", "air");}
+                        if (d != null) {
+                            main.config.set("CRKeys.d", d.toString());
+                            System.out.println("d placed");
+                        } else {main.config.set("CRKeys.d", "air");}
+                        if (f != null) {
+                            main.config.set("CRKeys.f", f.toString());
+                            System.out.println("f placed");
+                        } else {main.config.set("CRKeys.f", "air");}
+                        if (g != null) {
+                            main.config.set("CRKeys.g", g.toString());
+                            System.out.println("g placed");
+                        } else {main.config.set("CRKeys.g", "air");}
+                        if (h != null) {
+                            main.config.set("CRKeys.h", h.toString());
+                            System.out.println("h placed");
+                        } else {main.config.set("CRKeys.h", "air");}
+                        if (i != null) {
+                            main.config.set("CRKeys.i", i.toString());
+                            System.out.println("i placed");
+                        } else {main.config.set("CRKeys.i", "air");}
+                        if (j != null) {
+                            main.config.set("CRKeys.j", j.toString());
+                            System.out.println("j placed");
+                        } else {main.config.set("CRKeys.j", "air");}
 
 
-                        main.heartrecipe.shape("abc", "dfg", "hij");
-
-                        main.heartrecipe.setIngredient('a', a != null ? new RecipeChoice.ExactChoice(a) : new RecipeChoice.MaterialChoice(Material.AIR));
-                        main.heartrecipe.setIngredient('b', b != null ? new RecipeChoice.ExactChoice(b) : new RecipeChoice.MaterialChoice(Material.AIR));
-                        main.heartrecipe.setIngredient('c', c != null ? new RecipeChoice.ExactChoice(c) : new RecipeChoice.MaterialChoice(Material.AIR));
-                        main.heartrecipe.setIngredient('d', d != null ? new RecipeChoice.ExactChoice(d) : new RecipeChoice.MaterialChoice(Material.AIR));
-                        main.heartrecipe.setIngredient('f', f != null ? new RecipeChoice.ExactChoice(f) : new RecipeChoice.MaterialChoice(Material.AIR));
-                        main.heartrecipe.setIngredient('g', g != null ? new RecipeChoice.ExactChoice(g) : new RecipeChoice.MaterialChoice(Material.AIR));
-                        main.heartrecipe.setIngredient('h', h != null ? new RecipeChoice.ExactChoice(h) : new RecipeChoice.MaterialChoice(Material.AIR));
-                        main.heartrecipe.setIngredient('i', i != null ? new RecipeChoice.ExactChoice(i) : new RecipeChoice.MaterialChoice(Material.AIR));
-                        main.heartrecipe.setIngredient('j', j != null ? new RecipeChoice.ExactChoice(j) : new RecipeChoice.MaterialChoice(Material.AIR));
-                        if (a != null) {main.config.set("CRKeys.a", a.toString());}
-                        if (b != null) {main.config.set("CRKeys.b", b.toString());}
-                        if (c != null) {main.config.set("CRKeys.c", c.toString());}
-                        if (d != null) {main.config.set("CRKeys.d", d.toString());}
-                        if (f != null) {main.config.set("CRKeys.f", f.toString());}
-                        if (g != null) {main.config.set("CRKeys.g", g.toString());}
-                        if (h != null) {main.config.set("CRKeys.h", h.toString());}
-                        if (i != null) {main.config.set("CRKeys.i", i.toString());}
-                        if (j != null) {main.config.set("CRKeys.j", j.toString());}
-
-
-                        main.recipechangetoggle = true;
-                        main.heartrecipe.setCategory(CraftingBookCategory.MISC);
-                        Bukkit.addRecipe(main.heartrecipe);
+                        main.config.set("HBRB", true);
                         try {
                             main.config.save(new File(main.getDataFolder(), "configuration.yml"));
+                            System.out.println("saved to file");
                         } catch (IOException x) {
                             throw new RuntimeException(x);
                         }
@@ -136,25 +122,27 @@ public class OnPlayerClick implements Listener {
                         e.getWhoClicked().sendMessage(prefix + " Recipe saved! Due to Spigot API restrictions, a server restart is required to enable the recipe...");
 
                         e.setCancelled(true);
-                        break;
-                }
-
-
-
-
-
-
-
-
-            } else if (e.getRawSlot() >= 0 && e.getRawSlot() <=43){
+                    }
+                } else if (e.getRawSlot() >= 0 && e.getRawSlot() <=43){
                 e.setCancelled(true);
             }
 
-        }
 
+
+
+
+
+
+
+        }
 
     }
 
 
 
+
 }
+
+
+
+

@@ -6,20 +6,19 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.inventory.recipe.CraftingBookCategory;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class HeartCreator {
 
@@ -35,10 +34,10 @@ public class HeartCreator {
     public void HeartGen() throws IOException {
 
 
-        if (main.config.getBoolean("HeartsEnabled")) {
+        if (main.config.getBoolean("HeartsEnabled") && main.getConfig().getBoolean("HeartRecipeEnabled")) {
 
             //Create heart item.
-                main.heart = new ItemStack(Material.NETHER_STAR);
+            main.heart = new ItemStack(Material.NETHER_STAR);
             ItemMeta heartmeta = main.heart.getItemMeta();
             heartmeta.setDisplayName(ChatColor.GOLD + main.config.getString("HeartName"));
             List<String> Lorelist = new ArrayList<String>();
@@ -55,15 +54,15 @@ public class HeartCreator {
                 heartmeta.setLore(Lorelist);
             }
             main.heart.setItemMeta(heartmeta);
+
             main.heartrecipe = new ShapedRecipe(main.heart);
-            if (main.config.getBoolean("HeartsEnabled") && !main.config.getBoolean("HBR")) {
+            if (!main.config.getBoolean("HBRB")) {
                 main.heartrecipe.shape("aaa", "aba", "aaa");
                 main.heartrecipe.setIngredient('b', Material.TOTEM_OF_UNDYING);
                 main.heartrecipe.setIngredient('a', Material.DIAMOND);
                 main.config.set("CRKeys.a", Material.TOTEM_OF_UNDYING.toString());
                 main.config.set("CRKeys.b", Material.DIAMOND.toString());
                 main.config.set("HBR", true);
-                main.recipechangetoggle = false;
                 Bukkit.addRecipe(main.heartrecipe);
                 try {
                     main.config.save(new File(main.getDataFolder(), "configuration.yml"));
@@ -73,36 +72,71 @@ public class HeartCreator {
                     e.printStackTrace();
                 }
 
-
             } else {
+                Material a = (Material) Material.getMaterial(main.config.getString("CRKeys.a"));
+                Material b = (Material) Material.getMaterial(main.config.getString("CRKeys.b"));
+                Material c = (Material) Material.getMaterial(main.config.getString("CRKeys.c"));
+                Material d = (Material) Material.getMaterial(main.config.getString("CRKeys.d"));
+                Material f = (Material) Material.getMaterial(main.config.getString("CRKeys.f"));
+                Material g = (Material) Material.getMaterial(main.config.getString("CRKeys.g"));
+                Material h = (Material) Material.getMaterial(main.config.getString("CRKeys.h"));
+                Material i = (Material) Material.getMaterial(main.config.getString("CRKeys.i"));
+                Material j = (Material) Material.getMaterial(main.config.getString("CRKeys.j"));
 
-                if (main.recipechangetoggle) {
+                //chatgpt wrote this and I have no idea what it does, but it should work.
 
-                    ItemStack a = (ItemStack) main.config.get("CRKeys.a");
-                    ItemStack b = (ItemStack) main.config.get("CRKeys.b");
-                    ItemStack c = (ItemStack) main.config.get("CRKeys.c");
-                    ItemStack d = (ItemStack) main.config.get("CRKeys.d");
-                    ItemStack f = (ItemStack) main.config.get("CRKeys.f");
-                    ItemStack g = (ItemStack) main.config.get("CRKeys.g");
-                    ItemStack h = (ItemStack) main.config.get("CRKeys.h");
-                    ItemStack i = (ItemStack) main.config.get("CRKeys.i");
-                    ItemStack j = (ItemStack) main.config.get("CRKeys.j");
-                    main.heartrecipe.shape("abc", "dfg", "hij");
+                String[] keys = {"a", "b", "c", "d", "f", "g", "h", "i", "j"};
+                StringBuilder abcBuilder = new StringBuilder();
+                StringBuilder dfgBuilder = new StringBuilder();
+                StringBuilder hijBuilder = new StringBuilder();
 
-                    main.heartrecipe.setIngredient('a', a != null ? new RecipeChoice.ExactChoice(a) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    main.heartrecipe.setIngredient('b', b != null ? new RecipeChoice.ExactChoice(b) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    main.heartrecipe.setIngredient('c', c != null ? new RecipeChoice.ExactChoice(c) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    main.heartrecipe.setIngredient('d', d != null ? new RecipeChoice.ExactChoice(d) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    main.heartrecipe.setIngredient('f', f != null ? new RecipeChoice.ExactChoice(f) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    main.heartrecipe.setIngredient('g', g != null ? new RecipeChoice.ExactChoice(g) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    main.heartrecipe.setIngredient('h', h != null ? new RecipeChoice.ExactChoice(h) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    main.heartrecipe.setIngredient('i', i != null ? new RecipeChoice.ExactChoice(i) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    main.heartrecipe.setIngredient('j', j != null ? new RecipeChoice.ExactChoice(j) : new RecipeChoice.MaterialChoice(Material.AIR));
-                    Bukkit.addRecipe(main.heartrecipe);
-
-
-
+                // Populate the groups based on material presence
+                for (String key : keys) {
+                    String materialName = main.config.getString("CRKeys." + key);
+                    if (materialName != null && materialName.equals("air")) {
+                        if ("abc".contains(key)) {
+                            abcBuilder.append(" ");
+                        }
+                        if ("dfg".contains(key)) {
+                            dfgBuilder.append(" ");
+                        }
+                        if ("hij".contains(key)) {
+                            hijBuilder.append(" ");
+                        }
+                    } else {
+                        if ("abc".contains(key)) {
+                            abcBuilder.append(key);
+                        }
+                        if ("dfg".contains(key)) {
+                            dfgBuilder.append(key);
+                        }
+                        if ("hij".contains(key)) {
+                            hijBuilder.append(key);
+                        }
+                    }
                 }
+
+                String abc = abcBuilder.toString().trim();
+                String dfg = dfgBuilder.toString().trim();
+                String hij = hijBuilder.toString().trim();
+
+                // Use the variables abc, dfg, hij in the shape
+                main.heartrecipe.shape(abc, dfg, hij);
+
+                if (abc.contains("a")) {main.heartrecipe.setIngredient('a', new RecipeChoice.ExactChoice(new ItemStack(a)));}
+                if (abc.contains("b")) {main.heartrecipe.setIngredient('b', new RecipeChoice.ExactChoice(new ItemStack(b)));}
+                if (abc.contains("c")) {main.heartrecipe.setIngredient('c', new RecipeChoice.ExactChoice(new ItemStack(c)));}
+                if (dfg.contains("d")) {main.heartrecipe.setIngredient('d', new RecipeChoice.ExactChoice(new ItemStack(d)));}
+                if (dfg.contains("f")) {main.heartrecipe.setIngredient('f', new RecipeChoice.ExactChoice(new ItemStack(f)));}
+                if (dfg.contains("g")) {main.heartrecipe.setIngredient('g', new RecipeChoice.ExactChoice(new ItemStack(g)));}
+                if (hij.contains("h")) {main.heartrecipe.setIngredient('h', new RecipeChoice.ExactChoice(new ItemStack(h)));}
+                if (hij.contains("i")) {main.heartrecipe.setIngredient('i', new RecipeChoice.ExactChoice(new ItemStack(i)));}
+                if (hij.contains("j")) {main.heartrecipe.setIngredient('j', new RecipeChoice.ExactChoice(new ItemStack(j)));}
+                main.heartrecipe.setCategory(CraftingBookCategory.MISC);
+                Bukkit.addRecipe(main.heartrecipe);
+
+
+
 
             }
 
@@ -113,3 +147,4 @@ public class HeartCreator {
     }
 
 }
+

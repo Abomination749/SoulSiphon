@@ -5,7 +5,9 @@ Version: 1.0
 
 #Before you reset all players health, make sure to reset your world and inventories first to protect against heart-duping!
 
+#Keeps track of whether certain functions have been run before. Do not touch unless you know what you are doing!
 HBR: false
+HBRB: false
 
 
 #Base health is 10 hearts. use negative numbers to lower the starting health. Default: 0
@@ -73,10 +75,17 @@ DeathMessagePrefix: "[SoulSiphon]"
 DeathMessage: "has lost their last heart!"
 
 #Custom crafting recipe for hearts.
-#Set keys as letters, assign a material to them, and place them into the custom recipe. Z defaults to air. Requires a full server restart. E is missing due to event handling.
+#Sets the values of keys within the crafting recipe. This will automatically update. Requires a full server restart. E is missing due to event handling.
 CRKeys:
   a: "DIAMOND"
   b: "TOTEM_OF_UNDYING"
+  c: 3
+  d: 4
+  f: 5
+  g: 6
+  h: 7
+  i: 8
+  j: 9
 
 #Only change the letters in the below recipe!
 

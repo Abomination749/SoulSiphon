@@ -1,6 +1,7 @@
 package com.dop.soulsiphon.Listeners;
 
 import com.dop.soulsiphon.Main;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -39,7 +40,8 @@ public class OnPlayerInteract implements Listener {
     @EventHandler
     public void Oninteract(PlayerInteractEvent e) {
         if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) || e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
-            if (e.getPlayer().getInventory().getItemInMainHand() != null && e.getPlayer().getInventory().getItemInMainHand().isSimilar(heart)) {
+            e.getPlayer().getInventory().getItemInMainHand();
+            if (e.getPlayer().getInventory().getItemInMainHand().isSimilar(main.heart)) {
                 Player player = e.getPlayer();
                 health.put(player.getUniqueId(), health.get(player.getUniqueId()) + 2);
                 player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health.get(player.getUniqueId()));
@@ -49,7 +51,7 @@ public class OnPlayerInteract implements Listener {
                 if (amount > 1) {
                     player.getInventory().getItemInMainHand().setAmount(amount - 1);
                 } else {
-                    player.getInventory().removeItem(heart);
+                    player.getInventory().removeItem(player.getInventory().getItemInMainHand());
                 }
             }
         }

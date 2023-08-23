@@ -36,7 +36,6 @@ public class SetReviveSpawnCMD implements CommandExecutor {
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
-                main.reloadConfig();
                 player.sendMessage(main.prefix + " Spawn set to " + location.getX() + " " + location.getY() + " " + location.getZ() + " in world " + location.getWorld().getName());
             }
         } else {
