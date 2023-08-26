@@ -8,9 +8,11 @@ import com.dop.soulsiphon.Commands.SetReviveSpawnCMD;
 import com.dop.soulsiphon.Commands.Withdraw.WithdrawCMD;
 import com.dop.soulsiphon.Commands.Withdraw.WithdrawTAB;
 import com.dop.soulsiphon.Listeners.*;
+import com.dop.soulsiphon.Utils.ConfigUpdater.ConfigUpdater;
 import com.dop.soulsiphon.Utils.DefaultConfig;
 import com.dop.soulsiphon.Utils.HeartCreator;
 
+import com.dop.soulsiphon.Utils.Updater;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -45,6 +47,9 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        int ID = 112281;
+        Updater updater = new Updater(this, ID, this.getFile(), Updater.UpdateType.CHECK_DOWNLOAD, false);
 
 
 
@@ -94,6 +99,19 @@ public class Main extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        try {
+            File configFileA = configfile.getCanonicalFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            ConfigUpdater.update(this, "configuration.yml", configfile , Arrays.asList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        reloadConfig();
 
         startingmaxhealth = 20 + (config.getInt("StartingHeartsModifier") * 2);
         this.prefix = config.getString("Prefix");

@@ -15,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 
+import javax.swing.plaf.basic.BasicBorders;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -57,11 +58,13 @@ public class HeartCreator {
 
             main.heartrecipe = new ShapedRecipe(main.heart);
             if (!main.config.getBoolean("HBRB")) {
-                main.heartrecipe.shape("aaa", "aba", "aaa");
+                main.heartrecipe.shape("cac", "aba", "cac");
                 main.heartrecipe.setIngredient('b', Material.TOTEM_OF_UNDYING);
                 main.heartrecipe.setIngredient('a', Material.DIAMOND);
+                main.heartrecipe.setIngredient('c', Material.NETHERITE_INGOT);
                 main.config.set("CRKeys.a", Material.TOTEM_OF_UNDYING.toString());
                 main.config.set("CRKeys.b", Material.DIAMOND.toString());
+                main.config.set("CRKeys.c", Material.NETHERITE_INGOT.toString());
                 main.config.set("HBR", true);
                 Bukkit.addRecipe(main.heartrecipe);
                 try {

@@ -8,6 +8,7 @@ Version: 1.0
 #Keeps track of whether certain functions have been run before. Do not touch unless you know what you are doing!
 HBR: false
 HBRB: false
+HBRC: false
 
 
 #Base health is 10 hearts. use negative numbers to lower the starting health. Default: 0
@@ -87,8 +88,19 @@ CRKeys:
   i: 8
   j: 9
 
-#Only change the letters in the below recipe!
-
+#Custom crafting recipe for revive beacons.
+#Sets the values of keys within the crafting recipe. This will automatically update. Requires a full server restart. E is missing due to event handling.
+#Use "Heart" to use a heart item in the recipe.
+CRKeysB:
+  a: "DIAMOND"
+  b: "TOTEM_OF_UNDYING"
+  c: "Heart"
+  d: 4
+  f: 5
+  g: 6
+  h: 7
+  i: 8
+  j: 9
 
 #World spawnpoint where revived players will spawn.
 #Make sure to set this, as it does not check for safety.
