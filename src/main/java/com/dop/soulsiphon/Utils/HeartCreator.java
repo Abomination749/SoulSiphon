@@ -32,6 +32,17 @@ public class HeartCreator {
 
     }
 
+    private Material a;
+    private Material b;
+    private Material c;
+    private Material d;
+    private Material f;
+    private Material g;
+    private Material h;
+    private Material i;
+    private Material j;
+
+
     public void HeartGen() throws IOException {
 
 
@@ -76,15 +87,15 @@ public class HeartCreator {
                 }
 
             } else {
-                Material a = (Material) Material.getMaterial(main.config.getString("CRKeys.a"));
-                Material b = (Material) Material.getMaterial(main.config.getString("CRKeys.b"));
-                Material c = (Material) Material.getMaterial(main.config.getString("CRKeys.c"));
-                Material d = (Material) Material.getMaterial(main.config.getString("CRKeys.d"));
-                Material f = (Material) Material.getMaterial(main.config.getString("CRKeys.f"));
-                Material g = (Material) Material.getMaterial(main.config.getString("CRKeys.g"));
-                Material h = (Material) Material.getMaterial(main.config.getString("CRKeys.h"));
-                Material i = (Material) Material.getMaterial(main.config.getString("CRKeys.i"));
-                Material j = (Material) Material.getMaterial(main.config.getString("CRKeys.j"));
+                if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {a = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
+                if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {b = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
+                if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {c = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
+                if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {d = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
+                if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {f = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
+                if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {g = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
+                if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {h = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
+                if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {i = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
+                if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {j = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
 
                 //chatgpt wrote this and I have no idea what it does, but it should work.
 

@@ -1,13 +1,9 @@
-
-#DO NOT CHANGE THIS!
-Version: 1.0
-
-
 #Before you reset all players health, make sure to reset your world and inventories first to protect against heart-duping!
 
 #Keeps track of whether certain functions have been run before. Do not touch unless you know what you are doing!
 HBR: false
 HBRB: false
+HBRC: false
 
 
 #Base health is 10 hearts. use negative numbers to lower the starting health. Default: 0
@@ -18,6 +14,11 @@ OtherDeathsCount: true
 
 #Number of hearts to remove on death. Default: 1
 HeartsLostOnDeath: 1
+
+#
+#       Heart Items
+#
+
 
 #Are heart items enabled? Default: true
 HeartsEnabled: true
@@ -33,7 +34,24 @@ HeartLore:
   - "Use this to increase your hearts!"
   - ""
   - ""
-  -
+
+#
+#       Beacon Items
+#
+
+#Are heart items enabled? Default: true
+BeaconsEnabled: true
+
+#Name of hearts.
+BeaconName: "Beacon"
+
+#Heart lore. Up to three lines.
+BeaconLore:
+  - "Use this item to revive a lost soul."
+  - ""
+  - ""
+
+
   #Should hearts drop on death? If true, a heart item will drop. If false, the heart will automatically go to the killer. HeartsEnabled must be set to true. Default: false
 HeartsDropOnDeath: false
 
@@ -87,8 +105,19 @@ CRKeys:
   i: 8
   j: 9
 
-#Only change the letters in the below recipe!
-
+#Custom crafting recipe for revive beacons.
+#Sets the values of keys within the crafting recipe. This will automatically update. Requires a full server restart. E is missing due to event handling.
+#Use "Heart" to use a heart item in the recipe.
+CRKeysB:
+  a: "DIAMOND"
+  b: "TOTEM_OF_UNDYING"
+  c: "Heart"
+  d: 4
+  f: 5
+  g: 6
+  h: 7
+  i: 8
+  j: 9
 
 #World spawnpoint where revived players will spawn.
 #Make sure to set this, as it does not check for safety.
@@ -98,6 +127,24 @@ ReviveSpawn:
   x: 0
   y: 60
   z: 0
+
+
+#
+#     Effects
+#
+
+#Should consuming a heart produce particles/sounds? default: true
+HeartUseParticles: true
+HeartUseSounds: true
+
+#Should consuming a revive beacon produce particles/sounds? default: true
+BeaconUseParticles: true
+BeaconUseSounds: true
+BeaconUseMusic: true
+
+#Should dying to another player produce particles? default: true
+DeathParticles: true
+
 
 #This is a list of all currently banned players due to health.
 #This will update automatically if you use the /resetlives command!

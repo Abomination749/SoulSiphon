@@ -37,7 +37,7 @@ public class AdminTAB implements TabCompleter {
         List<String> results = new ArrayList<>();
         if (commandSender instanceof Player) {
             if (args.length == 1) {
-                return StringUtil.copyPartialMatches(args[0], Arrays.asList("SaveHL", "recipegui", "withdraw", "setrevivespawn", "resetlives", "config", "reload", "give", "help"), new ArrayList<>());
+                return StringUtil.copyPartialMatches(args[0], Arrays.asList("SaveHL", "heartrecipegui", "beaconrecipegui", "withdraw", "setrevivespawn", "resetlives", "config", "reload", "give", "help"), new ArrayList<>());
             } else if (args.length == 2) {
 
                 if (args[0].equalsIgnoreCase("withdraw")) {

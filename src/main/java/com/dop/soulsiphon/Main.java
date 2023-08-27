@@ -8,11 +8,12 @@ import com.dop.soulsiphon.Commands.SetReviveSpawnCMD;
 import com.dop.soulsiphon.Commands.Withdraw.WithdrawCMD;
 import com.dop.soulsiphon.Commands.Withdraw.WithdrawTAB;
 import com.dop.soulsiphon.Listeners.*;
-import com.dop.soulsiphon.Utils.ConfigUpdater.ConfigUpdater;
+import com.dop.soulsiphon.Utils.BeaconCreator;
 import com.dop.soulsiphon.Utils.DefaultConfig;
 import com.dop.soulsiphon.Utils.HeartCreator;
 
 import com.dop.soulsiphon.Utils.Updater;
+import com.sun.org.apache.xerces.internal.xs.StringList;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -37,11 +38,14 @@ public class Main extends JavaPlugin {
     public YamlConfiguration modifyhl = YamlConfiguration.loadConfiguration(heartslist);
     public String prefix;
     public ItemStack heart;
+    public ItemStack beacon;
 
     public ShapedRecipe heartrecipe;
+    public ShapedRecipe beaconrecipe;
 
 
     public NamespacedKey key;
+    public List<String> chatlist = new ArrayList<>();
 
 
 
@@ -99,16 +103,12 @@ public class Main extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        BeaconCreator beaconCreator = new BeaconCreator(this);
         try {
-            File configFileA = configfile.getCanonicalFile();
+            beaconCreator.BeaconGen();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-
-        try {
-            ConfigUpdater.update(this, "configuration.yml", configfile , Arrays.asList());
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         reloadConfig();
@@ -124,6 +124,7 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new OnPlayerInteract(this), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerCraft(this), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerClick(this), this);
+        Bukkit.getPluginManager().registerEvents(new OnPlayerChat(this), this);
 
 
         String prefix = getConfig().getString("Prefix");

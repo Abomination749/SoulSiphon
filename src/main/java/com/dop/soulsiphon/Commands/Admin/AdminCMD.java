@@ -167,9 +167,9 @@ public class AdminCMD implements CommandExecutor {
                     System.out.println(main.prefix + " An issue occurred with saving heartslist.yml!");
                     return false;
                 }
-            } else if (args[0].equalsIgnoreCase("recipegui")) {
+            } else if (args[0].equalsIgnoreCase("heartrecipegui")) {
 
-                if (commandSender instanceof Player && commandSender.hasPermission("soulsiphon.recipegui")) {
+                if (commandSender instanceof Player && commandSender.hasPermission("soulsiphon.heartrecipegui")) {
 
                     ItemStack save = new ItemStack(Material.NETHER_STAR);
                     ItemMeta savem = save.getItemMeta();
@@ -177,7 +177,30 @@ public class AdminCMD implements CommandExecutor {
                     savem.setDisplayName("Save");
                     save.setItemMeta(savem);
 
-                    Inventory inv = Bukkit.createInventory((InventoryHolder) commandSender, 45, ChatColor.AQUA.toString() + "Recipe GUI");
+                    Inventory inv = Bukkit.createInventory((InventoryHolder) commandSender, 45, ChatColor.AQUA.toString() + "Heart Recipe GUI");
+
+                    for (int i : new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 16, 17, 18, 19, 23, 24, 25, 26, 27, 28, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43}) {
+
+                        inv.setItem(i, border);
+
+                    }
+
+                    inv.setItem(44, save);
+                    ((Player) commandSender).openInventory(inv);
+
+                }
+
+            } else if (args[0].equalsIgnoreCase("beaconrecipegui")) {
+
+                if (commandSender instanceof Player && commandSender.hasPermission("soulsiphon.heartrecipegui")) {
+
+                    ItemStack save = new ItemStack(Material.NETHER_STAR);
+                    ItemMeta savem = save.getItemMeta();
+                    ItemStack border = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
+                    savem.setDisplayName("Save");
+                    save.setItemMeta(savem);
+
+                    Inventory inv = Bukkit.createInventory((InventoryHolder) commandSender, 45, ChatColor.AQUA.toString() + "Beacon Recipe GUI");
 
                     for (int i : new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 16, 17, 18, 19, 23, 24, 25, 26, 27, 28, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43}) {
 

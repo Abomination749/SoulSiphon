@@ -15,6 +15,11 @@ OtherDeathsCount: true
 #Number of hearts to remove on death. Default: 1
 HeartsLostOnDeath: 1
 
+#
+#       Heart Items
+#
+
+
 #Are heart items enabled? Default: true
 HeartsEnabled: true
 
@@ -29,7 +34,24 @@ HeartLore:
   - "Use this to increase your hearts!"
   - ""
   - ""
-  -
+
+#
+#       Beacon Items
+#
+
+#Are heart items enabled? Default: true
+BeaconsEnabled: true
+
+#Name of hearts.
+BeaconName: "Beacon"
+
+#Heart lore. Up to three lines.
+BeaconLore:
+  - "Use this item to revive a lost soul."
+  - ""
+  - ""
+
+
   #Should hearts drop on death? If true, a heart item will drop. If false, the heart will automatically go to the killer. HeartsEnabled must be set to true. Default: false
 HeartsDropOnDeath: false
 
@@ -105,6 +127,24 @@ ReviveSpawn:
   x: 0
   y: 60
   z: 0
+
+
+#
+#     Effects
+#
+
+#Should consuming a heart produce particles/sounds? default: true
+HeartUseParticles: true
+HeartUseSounds: true
+
+#Should consuming a revive beacon produce particles/sounds? default: true
+BeaconUseParticles: true
+BeaconUseSounds: true
+BeaconUseMusic: true
+
+#Should dying to another player produce particles? default: true
+DeathParticles: true
+
 
 #This is a list of all currently banned players due to health.
 #This will update automatically if you use the /resetlives command!

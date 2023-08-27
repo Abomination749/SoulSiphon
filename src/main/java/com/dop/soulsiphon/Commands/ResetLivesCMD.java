@@ -36,14 +36,11 @@ public class ResetLivesCMD implements CommandExecutor {
                 if (Bukkit.getPlayer(args[0]) != null && !args[0].equals("all")) {
                     if (args[0].equals("all") || main.config.getStringList("PlayerBanList").contains(Bukkit.getPlayer(args[0]).getUniqueId().toString()) || main.config.getStringList("PlayerBanList").contains(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString())) {
 
-                        System.out.println(prefix + " Arguments are valid.");
-
                         if (commandSender instanceof Player) {
                             if (commandSender.hasPermission("soulsiphon.resetlives")) {
                                 Player p = Bukkit.getPlayer(args[0]);
                                 if (p != null && !args[0].equals("all")) {
 
-                                    commandSender.sendMessage(prefix + " Player is not null.");
 
                                     main.health.put(p.getUniqueId(), main.startingmaxhealth);
                                     commandSender.sendMessage(prefix + " Reset player's hearts!");
@@ -139,7 +136,9 @@ public class ResetLivesCMD implements CommandExecutor {
                                 if (main.config.getStringList("PlayerBanList").get(i).equals(of.getUniqueId().toString())) {
 
                                     main.health.put(of.getUniqueId(), main.startingmaxhealth);
-                                    Bukkit.getBanList(BanList.Type.NAME).pardon(of.getName());
+                                    if (of.isBanned()) {
+                                        Bukkit.getBanList(BanList.Type.NAME).pardon(of.getName());
+                                    }
                                     main.config.getStringList("PlayerBanList").add(of.getUniqueId().toString() + "TCG");
                                     System.out.println(prefix + " reset hearts of" + of.getName());
 

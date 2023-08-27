@@ -37,7 +37,7 @@ public class OnPlayerCraft implements Listener {
     @EventHandler
     public void OnCraft(PrepareItemCraftEvent e) {
 
-        if (e.getRecipe() != null && e.getRecipe().getResult() != null  && e.getRecipe().getResult().equals(Material.BEACON)) {
+        if (e.getRecipe() != null && e.getRecipe().getResult() != null  && e.getRecipe().getResult().equals(Material.BEACON) && !e.getRecipe().getResult().equals(main.beacon)) {
 
             if (e.getRecipe() != null && e.getRecipe().getResult() != null && e.getRecipe().getResult().getType() == Material.BEACON) {
 
