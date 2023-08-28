@@ -101,11 +101,9 @@ public class OnPlayerRespawn implements Listener {
                                     }
             main.reloadConfig();
             if (main.config.getStringList("PlayerBanList").contains(player.getUniqueId().toString())) {
-                System.out.println(prefix + " Player is in config!");
 
 
             } else {
-                System.out.println(prefix +" Trying to save player again...");
 
                 List<String> list = main.config.getStringList("PlayerBanList");
                 list.add(player.getUniqueId().toString());
@@ -121,7 +119,6 @@ public class OnPlayerRespawn implements Listener {
         } else {
 
             player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health.get(player.getUniqueId()));
-            System.out.println(prefix + " Player " + e.getPlayer() + " has respawned with new health!");
 
         }
 

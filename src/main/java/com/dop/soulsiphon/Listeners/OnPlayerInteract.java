@@ -47,7 +47,7 @@ public class OnPlayerInteract implements Listener {
                 if (main.config.getBoolean("HeartUseParticles")) {
                     Location loc = player.getLocation();
                     int radius = 2;
-                    for(double y = 0; y <= 25; y+=0.25) {
+                    for(double y = 0; y <= main.config.getInt("HeartParticleCount"); y+=0.25) {
                         double x = radius * Math.cos(y);
                         double z = radius * Math.sin(y);
                         Location loc2 = new Location(loc.getWorld(), loc.getX() + x, loc.getY() + y, loc.getZ() + z);
@@ -76,7 +76,6 @@ public class OnPlayerInteract implements Listener {
                 player.sendMessage(prefix + " What is the username of the player you would like to revive?");
 
                 main.chatlist.add(player.getUniqueId().toString());
-                System.out.println(main.chatlist);
 
 
             }

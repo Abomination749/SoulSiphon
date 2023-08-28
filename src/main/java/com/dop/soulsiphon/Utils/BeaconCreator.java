@@ -73,9 +73,8 @@ public class BeaconCreator {
                 Bukkit.addRecipe(main.beaconrecipe);
                 try {
                     main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                    System.out.println("Configuration saved successfully!");
                 } catch (IOException e) {
-                    System.out.println("An error occurred while saving the configuration!");
+                    System.out.println(main.prefix + " An error occurred while saving the configuration!");
                     e.printStackTrace();
                 }
 

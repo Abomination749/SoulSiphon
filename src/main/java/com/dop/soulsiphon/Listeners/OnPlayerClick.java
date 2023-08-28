@@ -104,7 +104,6 @@ public class OnPlayerClick implements Listener {
                     main.config.set("HBRB", true);
                     try {
                         main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                        System.out.println("saved to file");
                     } catch (IOException x) {
                         throw new RuntimeException(x);
                     }
@@ -182,46 +181,36 @@ public class OnPlayerClick implements Listener {
                     //Checking for air.
                     if (a != null) {
                         main.config.set("CRKeysB.a", a.toString());
-                        System.out.println("a placed");
                     } else {main.config.set("CRKeysB.a", "air");}
                     if (b != null) {
                         main.config.set("CRKeysB.b", b.toString());
-                        System.out.println("b placed");
                     } else {main.config.set("CRKeysB.b", "air");}
                     if (c != null) {
                         main.config.set("CRKeysB.c", c.toString());
-                        System.out.println("c placed");
                     } else {main.config.set("CRKeysB.c", "air");}
                     if (d != null) {
                         main.config.set("CRKeysB.d", d.toString());
-                        System.out.println("d placed");
                     } else {main.config.set("CRKeysB.d", "air");}
                     if (f != null) {
                         main.config.set("CRKeysB.f", f.toString());
-                        System.out.println("f placed");
                     } else {main.config.set("CRKeysB.f", "air");}
                     if (g != null) {
                         main.config.set("CRKeysB.g", g.toString());
-                        System.out.println("g placed");
                     } else {main.config.set("CRKeysB.g", "air");}
                     if (h != null) {
                         main.config.set("CRKeysB.h", h.toString());
-                        System.out.println("h placed");
                     } else {main.config.set("CRKeysB.h", "air");}
                     if (i != null) {
                         main.config.set("CRKeysB.i", i.toString());
-                        System.out.println("i placed");
                     } else {main.config.set("CRKeysB.i", "air");}
                     if (j != null) {
                         main.config.set("CRKeysB.j", j.toString());
-                        System.out.println("j placed");
                     } else {main.config.set("CRKeysB.j", "air");}
 
 
                     main.config.set("HBRC", true);
                     try {
                         main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                        System.out.println("saved to file");
                     } catch (IOException x) {
                         throw new RuntimeException(x);
                     }

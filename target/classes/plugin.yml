@@ -1,5 +1,5 @@
 name: SoulSiphon
-version: '1.2'
+version: '1.2.1'
 main: com.dop.soulsiphon.Main
 api-version: '1.20'
 author: DaysOfPeace

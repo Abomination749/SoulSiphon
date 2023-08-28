@@ -35,12 +35,8 @@ public class OnPlayerJoin implements Listener {
         Player player = e.getPlayer();
 
         if (e.getPlayer().hasPlayedBefore()) {
-            System.out.println(prefix + " Player " + e.getPlayer().getName() + " has played before!");
             if (health.get(e.getPlayer().getUniqueId()) != null) {
-                System.out.println(prefix + " Player " + e.getPlayer().getName() + " has an entry in the database!");
             } else {
-
-                System.out.println(prefix + " Player " + e.getPlayer().getName() + " does not have an entry in memory! generating...");
 
                 if (modifyhl.contains(e.getPlayer().getUniqueId().toString())) {
 
@@ -48,18 +44,14 @@ public class OnPlayerJoin implements Listener {
                     e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health.get(e.getPlayer().getUniqueId()));
 
                 } else {
-                    System.out.println(prefix + " Player has entry in storage! Getting data...");
                     health.put(e.getPlayer().getUniqueId(), startingmaxhealth);
                     e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health.get(e.getPlayer().getUniqueId()));
-                    System.out.println(prefix + " Player " + e.getPlayer().getName() + " now has an entry in memory!");
                 }
 
             }
         } else {
-            System.out.println(prefix + " Player " + e.getPlayer().getName() + " has not played before! Creating database entry...");
             health.put(e.getPlayer().getUniqueId(), startingmaxhealth);
             e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health.get(e.getPlayer().getUniqueId()));
-            System.out.println(prefix + " Player " + e.getPlayer().getName() + " now has an entry in the database!");
 
         }
 

@@ -64,7 +64,7 @@ public class AdminCMD implements CommandExecutor {
                     }
                 } else {
 
-                    System.out.println("Command cannot be run from console!");
+                    System.out.println(main.prefix + " Command cannot be run from console!");
 
                 }
 

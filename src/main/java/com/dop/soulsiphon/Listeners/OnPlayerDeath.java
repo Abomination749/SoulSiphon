@@ -1,6 +1,8 @@
 package com.dop.soulsiphon.Listeners;
 
 import com.dop.soulsiphon.Main;
+import org.bukkit.Particle;
+import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -42,11 +44,24 @@ public class OnPlayerDeath implements Listener {
 
         if (e.getEntity() instanceof Player) {
 
+            Particle p = Particle.REDSTONE;
+
 
             if (e.getEntity().getKiller() instanceof Player) {
-                System.out.println(prefix + " Player " + e.getEntity().getName() + " has died to a player! Modifying healths...");
 
                 if (main.config.getBoolean("HeartsDropOnDeath") && main.config.getBoolean("HeartsEnabled")) {
+
+                    if (main.config.getBoolean("DeathParticles")) {
+                            World world = e.getEntity().getLocation().getWorld();
+                            for (int i = 0; i < main.config.getInt("DeathParticlesCount"); i++) {
+                                double offsetX = Math.random() * 2 - 1;
+                                double offsetY = Math.random() * 2 - 1;
+                                double offsetZ = Math.random() * 2 - 1;
+
+                                world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, 3);
+                            }
+                    }
+
 
                     e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), heart);
 
@@ -55,9 +70,19 @@ public class OnPlayerDeath implements Listener {
                     health.put(killer.getUniqueId(), health.get(killer.getUniqueId()) + (main.config.getInt("HeartsLostOnDeath") * 2));
                     killer.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health.get(killer.getUniqueId()));
 
+                    if (main.config.getBoolean("DeathParticles")) {
+                        World world = e.getEntity().getLocation().getWorld();
+                        for (int i = 0; i < main.config.getInt("DeathParticlesCount"); i++) {
+                            double offsetX = Math.random() * 2 - 1;
+                            double offsetY = Math.random() * 2 - 1;
+                            double offsetZ = Math.random() * 2 - 1;
+
+                            world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, 3);
+                        }
+                    }
+
                     Player player = ((Player) e.getEntity()).getPlayer();
                     health.put(player.getUniqueId(), health.get(player.getUniqueId()) - (main.config.getInt("HeartsLostOnDeath") * 2));
-                    System.out.println(prefix + " Player " + e.getEntity().getName() + " and " + e.getEntity().getKiller() + "'s healths have been modified!");
                     if (health.get(player.getUniqueId()).equals(0)) {
 
                         if (main.config.getBoolean("EnderchestOnLoss")) {
@@ -74,7 +99,18 @@ public class OnPlayerDeath implements Listener {
                     }
                 }
             } else {
-                System.out.println(prefix + " Player " + e.getEntity() + " has died to a non-player cause! Checking config...");
+
+                if (main.config.getBoolean("OtherDeathParticles")) {
+                    World world = e.getEntity().getLocation().getWorld();
+                    for (int i = 0; i < main.config.getInt("DeathParticlesCount"); i++) {
+                        double offsetX = Math.random() * 2 - 1;
+                        double offsetY = Math.random() * 2 - 1;
+                        double offsetZ = Math.random() * 2 - 1;
+
+                        world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, 3);
+                    }
+                }
+
                 if (main.config.getBoolean("OtherDeathsCount")) {
 
                     if (health.get(e.getEntity().getUniqueId()).equals(0)) {
@@ -95,11 +131,33 @@ public class OnPlayerDeath implements Listener {
 
                     if (main.config.getBoolean("HeartsDropOnDeath") && main.config.getBoolean("HeartsEnabled") && main.config.getBoolean("OtherDeathsDrop")) {
                         e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), heart);
+
+                        if (main.config.getBoolean("OtherDeathParticles")) {
+                            World world = e.getEntity().getLocation().getWorld();
+                            for (int i = 0; i < main.config.getInt("DeathParticlesCount"); i++) {
+                                double offsetX = Math.random() * 2 - 1;
+                                double offsetY = Math.random() * 2 - 1;
+                                double offsetZ = Math.random() * 2 - 1;
+
+                                world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, 3);
+                            }
+                        }
                     } else {
                         Player player = ((Player) e.getEntity()).getPlayer();
                         health.put(player.getUniqueId(), health.get(player.getUniqueId()) - (main.config.getInt("HeartsLostOnDeath") * 2));
                         player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health.get(player.getUniqueId()));
-                        System.out.println(prefix + " Player " + e.getEntity().getName() + "'s health has been modified!");
+
+                        if (main.config.getBoolean("OtherDeathParticles")) {
+                            World world = e.getEntity().getLocation().getWorld();
+                            for (int i = 0; i < main.config.getInt("DeathParticlesCount"); i++) {
+                                double offsetX = Math.random() * 2 - 1;
+                                double offsetY = Math.random() * 2 - 1;
+                                double offsetZ = Math.random() * 2 - 1;
+
+                                world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, 3);
+                            }
+                        }
+
                     }
                 }
             }

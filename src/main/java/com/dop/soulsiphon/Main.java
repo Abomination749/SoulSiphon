@@ -75,7 +75,7 @@ public class Main extends JavaPlugin {
             try {
                 heartslist.createNewFile();
             } catch (IOException e) {
-                System.out.println("Cannot load file 'heartslist'!");
+                System.out.println(prefix + " Cannot load file 'heartslist'!");
                 return;
             }
         }
@@ -88,7 +88,7 @@ public class Main extends JavaPlugin {
             try {
                 configfile.createNewFile();
             } catch (IOException e) {
-                System.out.println("Cannot load file 'Config'!");
+                System.out.println(prefix + " Cannot load file 'Config'!");
             }
             DefaultConfig dc = new DefaultConfig(this);
             dc.copyDefaultConfig();
