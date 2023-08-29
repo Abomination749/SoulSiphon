@@ -60,31 +60,22 @@ public class OnPlayerRespawn implements Listener {
             if (main.config.getString("DeathOutcome").equals("spectator")) {
                 player.setGameMode(GameMode.SPECTATOR);
                 player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
-                List<String> list = main.config.getStringList("PlayerBanList");
-                list.add(player.getUniqueId().toString());
-                main.config.set("PlayerBanList", list);
-                                                        try {
-                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                                    } catch (IOException x) {
-                                        throw new RuntimeException(x);
-                                    }
+                main.modifybl.set(player.getUniqueId().toString(), "BFP");
+                try {
+                    main.modifybl.save(main.banlist);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             } else if (main.config.getString("DeathOutcome").equals("adventure")) {
 
                 player.setGameMode(GameMode.ADVENTURE);
                 player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
-                main.config.getStringList("PlayerBanList").add(player.getUniqueId().toString());
-                                                        try {
-                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                                    } catch (IOException x) {
-                                        throw new RuntimeException(x);
-                                    }
+                main.modifybl.set(player.getUniqueId().toString(), "BFP");
             } else if (main.config.getString("DeathOutcome").equals("banned")) {
 
                 Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), "You have run out of hearts!", null, "console");
                 player.kickPlayer("You ran out of hearts!");
-                List<String> list = main.config.getStringList("PlayerBanList");
-                list.add(player.getUniqueId().toString());
-                main.config.set("PlayerBanList", list);
+                main.modifybl.set(player.getUniqueId().toString(), "BFP");
 
 
             } else {
@@ -94,27 +85,27 @@ public class OnPlayerRespawn implements Listener {
 
             }
 
-                                                try {
-                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                                    } catch (IOException x) {
-                                        throw new RuntimeException(x);
-                                    }
+            try {
+                main.config.save(new File(main.getDataFolder(), "configuration.yml"));
+            } catch (IOException x) {
+                throw new RuntimeException(x);
+            }
             main.reloadConfig();
-            if (main.config.getStringList("PlayerBanList").contains(player.getUniqueId().toString())) {
+
+            try {
+                main.modifybl.save(main.banlist);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            if (main.modifybl.get(player.getUniqueId().toString()) != null && main.modifybl.get(player.getUniqueId().toString()) != "BFP") {
 
 
             } else {
 
-                List<String> list = main.config.getStringList("PlayerBanList");
-                list.add(player.getUniqueId().toString());
-                main.config.set("PlayerBanList", list);
-                                                    try {
-                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                                    } catch (IOException x) {
-                                        throw new RuntimeException(x);
-                                    }
+                main.modifybl.set(player.getUniqueId().toString(), "BFP");
+
             }
-            main.reloadConfig();
 
         } else {
 
@@ -139,7 +130,11 @@ public class OnPlayerRespawn implements Listener {
             return;
         }
 
-
+        try {
+            main.modifybl.save(main.banlist);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 

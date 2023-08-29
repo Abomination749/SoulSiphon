@@ -13,7 +13,6 @@ import com.dop.soulsiphon.Utils.DefaultConfig;
 import com.dop.soulsiphon.Utils.HeartCreator;
 
 import com.dop.soulsiphon.Utils.Updater;
-import com.sun.org.apache.xerces.internal.xs.StringList;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -35,7 +34,10 @@ public class Main extends JavaPlugin {
 
 
     public File heartslist = new File(getDataFolder(), "heartslist.yml");
+
+    public File banlist = new File(getDataFolder(), "banlist.yml");
     public YamlConfiguration modifyhl = YamlConfiguration.loadConfiguration(heartslist);
+    public YamlConfiguration modifybl = YamlConfiguration.loadConfiguration(banlist);
     public String prefix;
     public ItemStack heart;
     public ItemStack beacon;
@@ -55,8 +57,6 @@ public class Main extends JavaPlugin {
         int ID = 112281;
         Updater updater = new Updater(this, ID, this.getFile(), Updater.UpdateType.CHECK_DOWNLOAD, false);
 
-
-
         if(!getDataFolder().exists()) {
             getDataFolder().mkdirs();
         }
@@ -74,6 +74,15 @@ public class Main extends JavaPlugin {
         if (!heartslist.exists()) {
             try {
                 heartslist.createNewFile();
+            } catch (IOException e) {
+                System.out.println(prefix + " Cannot load file 'heartslist'!");
+                return;
+            }
+        }
+
+        if (!banlist.exists()) {
+            try {
+                banlist.createNewFile();
             } catch (IOException e) {
                 System.out.println(prefix + " Cannot load file 'heartslist'!");
                 return;
@@ -134,13 +143,6 @@ public class Main extends JavaPlugin {
         this.getCommand("setrevivespawn").setExecutor(new SetReviveSpawnCMD(this));
         this.getCommand("soulsiphon").setExecutor(new AdminCMD(this));
         this.getCommand("soulsiphon").setTabCompleter(new AdminTAB(this));
-
-        if (config.getBoolean("AllowSoulSiphonCreators")) {
-
-
-
-        }
-
 
     }
 

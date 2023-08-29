@@ -38,13 +38,13 @@ public class OnPlayerChat implements Listener {
 
             if (p != null) {
 
-                if (main.config.getStringList("PlayerBanList").contains(p.getUniqueId().toString())) {
+                if (main.modifybl.get(p.getUniqueId().toString()) != null && main.modifybl.get(p.getUniqueId().toString()) != "BFP") {
                     BukkitRunnable task = new BukkitRunnable() {
                         @Override
                         public void run() {
                             p.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 10, 1));
                             main.health.put(p.getUniqueId(), main.startingmaxhealth);
-                            main.config.getStringList("PlayerBanList").remove(p.getUniqueId().toString());
+                            main.modifybl.set(p.getUniqueId().toString(), "NA");
                             p.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 10, 1));
                             if (main.config.getBoolean("BeaconUseSounds")) {
                                 p.stopSound(SoundCategory.MUSIC);
@@ -68,9 +68,9 @@ public class OnPlayerChat implements Listener {
                             p.teleport(spawn);
                             p.sendMessage(main.prefix + ChatColor.DARK_RED + ChatColor.BOLD + " Welcome back to the land of the living.");
                             try {
-                                main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                            } catch (IOException i) {
-                                throw new RuntimeException(i);
+                                main.modifybl.save(main.banlist);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
                             }
                             if (main.config.getBoolean("BeaconUseParticles")) {
                                 Location location = e.getPlayer().getLocation();
@@ -97,13 +97,13 @@ public class OnPlayerChat implements Listener {
                 }
 
             } else if (oP != null) {
-                if (oP.getUniqueId().toString() != null && main.config.getStringList("PlayerBanList").contains(oP.getUniqueId().toString())) {
+                if (oP.getUniqueId().toString() != null && main.modifybl.get(oP.getUniqueId().toString()) == "BFP") {
 
                     main.health.put(oP.getUniqueId(), main.startingmaxhealth);
                     if (oP.isBanned()) {
                         Bukkit.getBanList(BanList.Type.NAME).pardon(oP.getName());
                     }
-                    main.config.getStringList("PlayerBanList").add(oP.getUniqueId().toString() + "TCG");
+                    main.modifybl.set(oP.getUniqueId().toString(), "TBC");
                     System.out.println(main.prefix + " reset hearts of" + oP.getName());
                     BukkitRunnable task = new BukkitRunnable() {
                         @Override

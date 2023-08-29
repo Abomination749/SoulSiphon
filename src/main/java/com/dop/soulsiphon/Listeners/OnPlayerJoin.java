@@ -62,19 +62,19 @@ public class OnPlayerJoin implements Listener {
 
                 player.setGameMode(GameMode.SPECTATOR);
                 player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
-                main.config.getStringList("PlayerBanList").add(player.getUniqueId().toString());
+                main.modifybl.set(player.getUniqueId().toString(), "BFP");
 
             } else if (main.config.getString("DeathOutcome").equals("adventure")) {
 
                 player.setGameMode(GameMode.ADVENTURE);
                 player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
-                main.config.getStringList("PlayerBanList").add(player.getUniqueId().toString());
+                main.modifybl.set(player.getUniqueId().toString(), "BFP");
 
             } else if (main.config.getString("DeathOutcome").equals("banned")) {
 
                 Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), prefix + " You have run out of hearts!", null, "console");
                 player.kickPlayer(prefix + " You ran out of hearts!");
-                main.config.getStringList("PlayerBanList").add(player.getUniqueId().toString());
+                main.modifybl.set(player.getUniqueId().toString(), "BFP");
 
             } else {
 
@@ -83,15 +83,17 @@ public class OnPlayerJoin implements Listener {
 
             }
 
-        } else if (main.config.getStringList("PlayerBanList").contains(player.getUniqueId().toString() + "TCG")) {
+        } else if (main.modifybl.get(player.getUniqueId().toString()) != null && main.modifybl.get(player.getUniqueId().toString()) == "TBC") {
 
             player.setGameMode(GameMode.SURVIVAL);
             player.teleport(new Location((World) Bukkit.getWorld(main.config.get("ReviveSpawn.world").toString()), (Double) main.config.getDouble("ReviveSpawn.x"), (Double) main.config.getDouble("ReviveSpawn.y"), (Double) main.config.getDouble("ReviveSpawn.z")));
+            main.modifybl.set(player.getUniqueId().toString(), "NA");
 
-        } else if (main.config.getStringList("PlayerBanList").contains(player.getUniqueId().toString() + "TCGfr")) {
+        } else if (main.modifybl.get(player.getUniqueId().toString()) != null && main.modifybl.get(player.getUniqueId().toString()) == "TBCFR") {
 
             player.setGameMode(GameMode.SURVIVAL);
             player.teleport(new Location((World) Bukkit.getWorld(main.config.get("ReviveSpawn.world").toString()), (Double) main.config.getDouble("ReviveSpawn.x"), (Double) main.config.getDouble("ReviveSpawn.y"), (Double) main.config.getDouble("ReviveSpawn.z")));
+            main.modifybl.set(player.getUniqueId().toString(), "NA");
 
             if (main.config.getBoolean("FullResetCommand")) {
                 Location spawn = new Location((World) Bukkit.getWorld(main.config.get("ReviveSpawn.world").toString()), (Double) main.config.getDouble("ReviveSpawn.x"), (Double) main.config.getDouble("ReviveSpawn.y"), (Double) main.config.getDouble("ReviveSpawn.z"));
@@ -102,5 +104,4 @@ public class OnPlayerJoin implements Listener {
             }
         }
     }
-
 }

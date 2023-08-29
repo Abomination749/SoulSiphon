@@ -321,21 +321,18 @@ public class AdminCMD implements CommandExecutor {
 
                         String value = args[2];
                         main.config.set(key, value);
-                                                            try {
-                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
-                                    }
+                        try {
+                            main.config.save(new File(main.getDataFolder(), "configuration.yml"));} catch (IOException e) {throw new RuntimeException(e);}
 
 
 
                     }
 
-                                                        try {
-                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
-                                    }
+                    try {
+                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     main.reloadConfig();
 
                     if (commandSender instanceof Player) {

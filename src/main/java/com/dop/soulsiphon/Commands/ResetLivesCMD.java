@@ -34,7 +34,7 @@ public class ResetLivesCMD implements CommandExecutor {
         if (commandSender.hasPermission("soulsteal.resetlives") || !(commandSender instanceof Player))
             if (args.length == 1) {
                 if (Bukkit.getPlayer(args[0]) != null && !args[0].equals("all")) {
-                    if (args[0].equals("all") || main.config.getStringList("PlayerBanList").contains(Bukkit.getPlayer(args[0]).getUniqueId().toString()) || main.config.getStringList("PlayerBanList").contains(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString())) {
+                    if (args[0].equals("all") || main.modifybl.get(Bukkit.getPlayer(args[0]).getUniqueId().toString()) != null || main.modifybl.get(Bukkit.getPlayer(args[0]).getUniqueId().toString()) != "BFP" ||  main.modifybl.get(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString()) != "BFP") {
 
                         if (commandSender instanceof Player) {
                             if (commandSender.hasPermission("soulsiphon.resetlives")) {
@@ -44,12 +44,12 @@ public class ResetLivesCMD implements CommandExecutor {
 
                                     main.health.put(p.getUniqueId(), main.startingmaxhealth);
                                     commandSender.sendMessage(prefix + " Reset player's hearts!");
-                                    main.config.getStringList("PlayerBanList").remove(p.getUniqueId().toString());
+                                    main.modifybl.set(p.getUniqueId().toString(), "NA");
                                     p.setGameMode(GameMode.SURVIVAL);
                                     p.teleport(spawn);
                                     p.sendMessage(prefix + " Your lives have been reset!");
-                                                                        try {
-                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
+                                    try {
+                                        main.modifybl.save(main.banlist);
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
@@ -69,14 +69,14 @@ public class ResetLivesCMD implements CommandExecutor {
 
                                 main.health.put(Bukkit.getPlayer(args[0]).getUniqueId(), main.startingmaxhealth);
                                 commandSender.sendMessage(prefix + " Reset player's hearts!");
-                                main.config.getStringList("PlayerBanList").remove(p.getUniqueId().toString());
+                                main.modifybl.set(p.getUniqueId().toString(), "NA");
                                 p.setGameMode(GameMode.SURVIVAL);
                                 p.teleport(spawn);
-                                                                    try {
-                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
-                                    }
+                                try {
+                                    main.modifybl.save(main.banlist);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
 
                             } else if (!args[0].equals("all")) {
 
@@ -114,75 +114,69 @@ public class ResetLivesCMD implements CommandExecutor {
 
                         main.heartslist.delete();
 
+                        for (Player o : Bukkit.getOnlinePlayers()) {
+                            if (main.modifybl.get(o.getUniqueId().toString()) == "BFP") {
 
-                        for (int i = 0; i < main.config.getStringList("PlayerBanList").size(); i++) {
-
-                            for (Player o : Bukkit.getOnlinePlayers()) {
-                                if (main.config.getStringList("PlayerBanList").get(i).equals(o.getUniqueId().toString())) {
-
-                                    o.setGameMode(GameMode.SURVIVAL);
-                                    main.health.put(o.getUniqueId(), main.startingmaxhealth);
-                                    Bukkit.getBanList(BanList.Type.NAME).pardon(o.getName());
-                                    o.teleport(spawn);
-                                    System.out.println(prefix + " reset hearts of" + o.getName());
-                                    o.sendMessage(prefix + " Your lives have been reset!");
-
-                                }
-
+                                o.setGameMode(GameMode.SURVIVAL);
+                                main.health.put(o.getUniqueId(), main.startingmaxhealth);
+                                Bukkit.getBanList(BanList.Type.NAME).pardon(o.getName());
+                                o.teleport(spawn);
+                                System.out.println(prefix + " reset hearts of" + o.getName());
+                                o.sendMessage(prefix + " Your lives have been reset!");
 
                             }
 
+
+                        }
+
+                        for (int i = 0; i < main.modifybl.getKeys(true).size(); i++) {
+
                             for (OfflinePlayer of : Bukkit.getOfflinePlayers()) {
-                                if (main.config.getStringList("PlayerBanList").get(i).equals(of.getUniqueId().toString())) {
+                                if (main.modifybl.get(of.getUniqueId().toString()) == "BFP") {
 
                                     main.health.put(of.getUniqueId(), main.startingmaxhealth);
                                     if (of.isBanned()) {
                                         Bukkit.getBanList(BanList.Type.NAME).pardon(of.getName());
                                     }
-                                    main.config.getStringList("PlayerBanList").add(of.getUniqueId().toString() + "TCG");
+                                    main.modifybl.set(of.getUniqueId().toString(), "TBC");
                                     System.out.println(prefix + " reset hearts of" + of.getName());
 
                                 }
 
 
                             }
-
-
-                            main.config.getStringList("PlayerBanList").remove(i);
-
-
                         }
-                        System.out.println(prefix + " Completely reset hearts!");
+
+                        main.banlist.delete();
+
+                        System.out.println(prefix + " Completely reset hearts! Please now reload the server.");
                     }
 
 
-                                                        try {
-                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
-                                    }
+                    try {
+                        main.modifybl.save(main.banlist);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     try {
                         main.modifyhl.save("heartslist.yml");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
-                    main.reloadConfig();
                 } else {
 
-                    if (Bukkit.getOfflinePlayer(args[0]) != null && main.config.getStringList("PlayerBanList").contains(Bukkit.getOfflinePlayer(args[0]).getUniqueId())) {
+                    if (Bukkit.getOfflinePlayer(args[0]) != null && main.modifybl.get(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString()) != null && main.modifybl.get(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString()) == "BFP") {
 
                         OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
                         main.health.put(Bukkit.getPlayer(args[0]).getUniqueId(), main.startingmaxhealth);
                         commandSender.sendMessage(prefix + " Reset player's hearts!");
-                        main.config.getStringList("PlayerBanList").remove(p.getUniqueId().toString());
-                        main.config.getStringList("PlayerBanList").add(p.getUniqueId().toString() + "TCG");
-                                                            try {
-                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
-                                    }
+                        main.modifybl.set(p.getUniqueId().toString(), "TBC");
+                        try {
+                            main.modifybl.save(main.banlist);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
 
 
                     } else if (Bukkit.getOfflinePlayer(args[0]) != null) {
@@ -190,7 +184,7 @@ public class ResetLivesCMD implements CommandExecutor {
                         OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
                         main.health.put(p.getUniqueId(), main.startingmaxhealth);
                         commandSender.sendMessage(prefix + " Reset player's hearts!");
-                        main.config.getStringList("PlayerBanList").add(p.getUniqueId().toString() + "TCGfr");
+                        main.modifybl.set(p.getUniqueId().toString(), "TBCFR");
 
 
 
@@ -200,12 +194,11 @@ public class ResetLivesCMD implements CommandExecutor {
 
                 }
             }
-                                            try {
-                                        main.config.save(new File(main.getDataFolder(), "configuration.yml"));
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
-                                    }
-        main.reloadConfig();
+        try {
+            main.modifybl.save(main.banlist);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         return false;
     }

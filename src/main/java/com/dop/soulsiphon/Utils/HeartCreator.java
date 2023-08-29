@@ -53,13 +53,13 @@ public class HeartCreator {
             ItemMeta heartmeta = main.heart.getItemMeta();
             heartmeta.setDisplayName(ChatColor.GOLD + main.config.getString("HeartName"));
             List<String> Lorelist = new ArrayList<String>();
-            if (main.config.getStringList("HeartLore").get(0) != null) {
+            if (main.config.getStringList("HeartLore").get(0) != "") {
                 Lorelist.add(main.config.getStringList("HeartLore").get(0));
             }
-            if (main.config.getStringList("HeartLore").get(1) != null) {
+            if (main.config.getStringList("HeartLore").get(1) != "") {
                 Lorelist.add(main.config.getStringList("HeartLore").get(1));
             }
-            if (main.config.getStringList("HeartLore").get(2) != null) {
+            if (main.config.getStringList("HeartLore").get(2) != "") {
                 Lorelist.add(main.config.getStringList("HeartLore").get(2));
             }
             if (Lorelist.get(0) != null) {

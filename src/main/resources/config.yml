@@ -47,8 +47,6 @@ CraftBeaconWithHearts: false
 #Should hearts drop to the ground if the withdraw command is used while their inventory is full? CanWithdraw must be set to true. Default: true
 HeartDropsIfFull: true
 
-
-
 #########################
 #	   Heart Items 	    #
 #########################
@@ -182,15 +180,3 @@ OtherDeathParticles: true
 
 #Number of particles to produce upon death.
 DeathParticlesCount: 25
-
-###########################
-#	    UUID Banlist	  #
-###########################
-
-#Will be moved to a custom YML at a future date. If you are seeing this and have a Banlist.yml, follow the instructions on the spigot page!
-#This is a list of all currently banned players due to health.
-#This will update automatically if you use the /resetlives command!
-#Do not touch unless you know what you are doing!
-#Saves in UUIDs, notch is just there for fun.
-PlayerBanList:
-  - "notch"

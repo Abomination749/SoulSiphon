@@ -1,6 +1,7 @@
 package com.dop.soulsiphon.Listeners;
 
 import com.dop.soulsiphon.Main;
+import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
@@ -58,7 +59,7 @@ public class OnPlayerDeath implements Listener {
                                 double offsetY = Math.random() * 2 - 1;
                                 double offsetZ = Math.random() * 2 - 1;
 
-                                world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, 3);
+                                world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, new Particle.DustOptions(Color.RED, 1));
                             }
                     }
 
@@ -77,7 +78,7 @@ public class OnPlayerDeath implements Listener {
                             double offsetY = Math.random() * 2 - 1;
                             double offsetZ = Math.random() * 2 - 1;
 
-                            world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, 3);
+                            world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, new Particle.DustOptions(Color.RED, 1));
                         }
                     }
 
@@ -107,7 +108,7 @@ public class OnPlayerDeath implements Listener {
                         double offsetY = Math.random() * 2 - 1;
                         double offsetZ = Math.random() * 2 - 1;
 
-                        world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, 3);
+                        world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, new Particle.DustOptions(Color.RED, 1));
                     }
                 }
 
@@ -139,7 +140,7 @@ public class OnPlayerDeath implements Listener {
                                 double offsetY = Math.random() * 2 - 1;
                                 double offsetZ = Math.random() * 2 - 1;
 
-                                world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, 3);
+                                world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, new Particle.DustOptions(Color.RED, 1));
                             }
                         }
                     } else {
@@ -154,7 +155,7 @@ public class OnPlayerDeath implements Listener {
                                 double offsetY = Math.random() * 2 - 1;
                                 double offsetZ = Math.random() * 2 - 1;
 
-                                world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, 3);
+                                world.spawnParticle(p, e.getEntity().getEyeLocation(), 1, offsetX, offsetY, offsetZ, new Particle.DustOptions(Color.RED, 1));
                             }
                         }
 
