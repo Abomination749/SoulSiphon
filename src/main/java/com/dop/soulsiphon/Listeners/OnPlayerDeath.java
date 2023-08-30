@@ -1,6 +1,7 @@
 package com.dop.soulsiphon.Listeners;
 
 import com.dop.soulsiphon.Main;
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.World;
@@ -123,7 +124,7 @@ public class OnPlayerDeath implements Listener {
                         }
 
                         if (main.config.getBoolean("DeathMessageEnabled")) {
-                            e.setDeathMessage(main.config.getString("DeathMessagePrefix") + " " + e.getEntity().getDisplayName() + " " + main.config.getString("DeathMessage"));
+                            e.setDeathMessage(main.prefix + " " + e.getEntity().getDisplayName() + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("DeathMessage")));
                         }
 
 
@@ -177,7 +178,6 @@ public class OnPlayerDeath implements Listener {
         try {
             modifyhl.save(main.heartslist);
         } catch (IOException ex) {
-            System.out.println(prefix + " An issue occurred with saving heartslist.yml!");
             return;
         }
 

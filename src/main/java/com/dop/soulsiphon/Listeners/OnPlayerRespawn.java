@@ -3,6 +3,7 @@ package com.dop.soulsiphon.Listeners;
 import com.dop.soulsiphon.Main;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -73,14 +74,14 @@ public class OnPlayerRespawn implements Listener {
                 main.modifybl.set(player.getUniqueId().toString(), "BFP");
             } else if (main.config.getString("DeathOutcome").equals("banned")) {
 
-                Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), "You have run out of hearts!", null, "console");
-                player.kickPlayer("You ran out of hearts!");
+                Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("BanMessage")), null, "console");
+                player.kickPlayer(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("BanMessage")));
                 main.modifybl.set(player.getUniqueId().toString(), "BFP");
 
 
             } else {
 
-                System.out.println(prefix + " DeathOutcome not configured right! Returned: " + main.config.getString("DeathOutcome") + "Should be spectator, adventure, or banned! Using spectator as default!");
+                System.out.println(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("IncorrectOutcome1")) + " " + main.config.getString("DeathOutcome") + ". " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("IncorrectOutcome2")));
 
 
             }
@@ -126,7 +127,6 @@ public class OnPlayerRespawn implements Listener {
         try {
             modifyhl.save(main.heartslist);
         } catch (IOException ex) {
-            System.out.println(prefix + " An issue occurred with saving heartslist.yml!");
             return;
         }
 

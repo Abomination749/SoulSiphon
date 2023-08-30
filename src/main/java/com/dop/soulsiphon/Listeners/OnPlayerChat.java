@@ -27,6 +27,7 @@ public class OnPlayerChat implements Listener {
     @EventHandler
     public void PlayerChatEvent(AsyncPlayerChatEvent e) {
 
+        //If the player has interacted with a revive beacon.
         if (main.chatlist.contains(e.getPlayer().getUniqueId().toString())) {
             e.setCancelled(true);
             main.chatlist.remove(e.getPlayer().getUniqueId().toString());
@@ -35,10 +36,11 @@ public class OnPlayerChat implements Listener {
             String s = e.getMessage();
             OfflinePlayer oP = Bukkit.getOfflinePlayer(s);
             Player p = Bukkit.getPlayer(s);
-
+            //If the player is online.
             if (p != null) {
-
+                //If the player is lost.
                 if (main.modifybl.get(p.getUniqueId().toString()) != null && main.modifybl.get(p.getUniqueId().toString()) != "BFP") {
+                    //Using runnables to run on main thread.
                     BukkitRunnable task = new BukkitRunnable() {
                         @Override
                         public void run() {
@@ -46,6 +48,7 @@ public class OnPlayerChat implements Listener {
                             main.health.put(p.getUniqueId(), main.startingmaxhealth);
                             main.modifybl.set(p.getUniqueId().toString(), "NA");
                             p.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 10, 1));
+                            //If the beacon is allowed to use sounds, play sounds.
                             if (main.config.getBoolean("BeaconUseSounds")) {
                                 p.stopSound(SoundCategory.MUSIC);
                                 p.stopSound(SoundCategory.AMBIENT);
@@ -59,6 +62,7 @@ public class OnPlayerChat implements Listener {
                                 e.getPlayer().playSound(p.getLocation(), Sound.BLOCK_END_PORTAL_SPAWN, 1, 1);
                                 e.getPlayer().playSound(p.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 1, 1);
                             }
+                            //If the beacon can use music, play the credits song.
                             if (main.config.getBoolean("BeaconUseMusic")) {
                                 p.playSound(p.getLocation(), Sound.MUSIC_CREDITS, 1000F, 1F);
                                 e.getPlayer().playSound(p.getLocation(), Sound.MUSIC_CREDITS, 1000F, 1F);
@@ -66,12 +70,13 @@ public class OnPlayerChat implements Listener {
 
                             p.setGameMode(GameMode.SURVIVAL);
                             p.teleport(spawn);
-                            p.sendMessage(main.prefix + ChatColor.DARK_RED + ChatColor.BOLD + " Welcome back to the land of the living.");
+                            p.sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("PlayerRevive")));
                             try {
                                 main.modifybl.save(main.banlist);
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
+                            //If the beacon can use particles, make a sphere effect around the beacon user.
                             if (main.config.getBoolean("BeaconUseParticles")) {
                                 Location location = e.getPlayer().getLocation();
 
@@ -91,12 +96,13 @@ public class OnPlayerChat implements Listener {
                     };
                     task.runTask(main);
 
-
                 } else {
-                    e.getPlayer().sendMessage(main.prefix + " This player has not been lost! Did you enter their name correctly?");
+                    //If the player is online but is not lost.
+                    e.getPlayer().sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("PlayerNotLost")));
                 }
-
+            //If the player is offline.
             } else if (oP != null) {
+                //If the player is lost.
                 if (oP.getUniqueId().toString() != null && main.modifybl.get(oP.getUniqueId().toString()) == "BFP") {
 
                     main.health.put(oP.getUniqueId(), main.startingmaxhealth);
@@ -104,10 +110,10 @@ public class OnPlayerChat implements Listener {
                         Bukkit.getBanList(BanList.Type.NAME).pardon(oP.getName());
                     }
                     main.modifybl.set(oP.getUniqueId().toString(), "TBC");
-                    System.out.println(main.prefix + " reset hearts of" + oP.getName());
                     BukkitRunnable task = new BukkitRunnable() {
                         @Override
                         public void run() {
+                            //Cool effects system wooooo
                             if (main.config.getBoolean("BeaconUseSounds")) {
                                 e.getPlayer().stopSound(SoundCategory.MUSIC);
                                 e.getPlayer().stopSound(SoundCategory.AMBIENT);
@@ -140,11 +146,11 @@ public class OnPlayerChat implements Listener {
                     task.runTask(main);
 
                 } else {
-                    e.getPlayer().sendMessage(main.prefix + " This player has not been lost! Did you enter their name correctly?");
+                    e.getPlayer().sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("PlayerNotLost")));
                 }
 
             } else {
-                e.getPlayer().sendMessage(main.prefix + " Player not found! Did you enter their name correctly?");
+                e.getPlayer().sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("PlayerNotFound")));
             }
 
         }

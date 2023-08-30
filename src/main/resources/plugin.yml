@@ -11,3 +11,6 @@ commands:
   setrevivespawn:
     description: "Sets the revive spawn to where you are standing!"
   soulsiphon:
+
+  ssleaderboard:
+

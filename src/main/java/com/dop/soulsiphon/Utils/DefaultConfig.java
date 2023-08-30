@@ -15,13 +15,13 @@ public class DefaultConfig {
 
     }
 
-    public void copyDefaultConfig() {
+    public void copyDefaults(String filename, String newfilename) {
         try {
             // Open a reader to the default config.yml resource
-            Reader defaultConfigReader = new InputStreamReader(main.getResource("config.yml"), StandardCharsets.UTF_8);
+            Reader defaultConfigReader = new InputStreamReader(main.getResource(filename), StandardCharsets.UTF_8);
 
             // Create a writer for the new configuration.yml file
-            FileWriter configWriter = new FileWriter(new File(main.getDataFolder(), "configuration.yml"));
+            FileWriter configWriter = new FileWriter(new File(main.getDataFolder(), newfilename));
 
             // Read from the default config and write to the new config
             char[] buffer = new char[1024];

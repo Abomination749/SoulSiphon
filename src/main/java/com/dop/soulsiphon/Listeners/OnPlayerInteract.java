@@ -73,7 +73,7 @@ public class OnPlayerInteract implements Listener {
                 Player player = e.getPlayer();
 
 
-                player.sendMessage(prefix + " What is the username of the player you would like to revive?");
+                player.sendMessage(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("BeaconUse")));
 
                 main.chatlist.add(player.getUniqueId().toString());
 

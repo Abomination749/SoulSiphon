@@ -38,7 +38,7 @@ public class BeaconCreator {
 
     public void BeaconGen() throws IOException {
 
-
+        //If beacons are enabled
         if (main.config.getBoolean("BeaconsEnabled")) {
 
             //Create beacon item.
@@ -60,7 +60,9 @@ public class BeaconCreator {
             }
             main.beacon.setItemMeta(beaconmeta);
 
+            //Create beacon recipe
             main.beaconrecipe = new ShapedRecipe(main.beacon);
+            //If beacon recipe has not been edited
             if (!main.config.getBoolean("HBRC")) {
                 main.beaconrecipe.shape("bcb", "cac", "bcb");
                 main.beaconrecipe.setIngredient('a', new RecipeChoice.ExactChoice(main.heart));
@@ -74,11 +76,11 @@ public class BeaconCreator {
                 try {
                     main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                 } catch (IOException e) {
-                    System.out.println(main.prefix + " An error occurred while saving the configuration!");
                     e.printStackTrace();
                 }
-
+            //If beacon recipe has been edited.
             } else {
+                //Set null materials to air
                 if (Material.getMaterial(main.config.getString("CRKeysB.a")) != null) {a = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
                 if (Material.getMaterial(main.config.getString("CRKeysB.a")) != null) {b = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
                 if (Material.getMaterial(main.config.getString("CRKeysB.a")) != null) {c = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
@@ -126,9 +128,10 @@ public class BeaconCreator {
                 String dfg = dfgBuilder.toString().trim();
                 String hij = hijBuilder.toString().trim();
 
-                // Use the variables abc, dfg, hij in the shape
+                //Create recipe shape
                 main.beaconrecipe.shape(abc, dfg, hij);
 
+                //Get used recipes
                 if (abc.contains("a")) {if (main.config.getString("CRKeysB").equals("Heart")) {main.beaconrecipe.setIngredient('a', new RecipeChoice.ExactChoice(main.heart));} else {main.beaconrecipe.setIngredient('a', new RecipeChoice.ExactChoice(new ItemStack(a)));}}
                 if (abc.contains("b")) {if (main.config.getString("CRKeysB").equals("Heart")) {main.beaconrecipe.setIngredient('b', new RecipeChoice.ExactChoice(main.heart));} else {main.beaconrecipe.setIngredient('b', new RecipeChoice.ExactChoice(new ItemStack(b)));}}
                 if (abc.contains("c")) {if (main.config.getString("CRKeysB").equals("Heart")) {main.beaconrecipe.setIngredient('c', new RecipeChoice.ExactChoice(main.heart));} else {main.beaconrecipe.setIngredient('c', new RecipeChoice.ExactChoice(new ItemStack(c)));}}

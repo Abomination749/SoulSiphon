@@ -1,5 +1,5 @@
 name: SoulSiphon
-version: '1.2.2'
+version: '1.2.3-dev'
 main: com.dop.soulsiphon.Main
 api-version: '1.20'
 author: DaysOfPeace
@@ -11,3 +11,6 @@ commands:
   setrevivespawn:
     description: "Sets the revive spawn to where you are standing!"
   soulsiphon:
+
+  ssleaderboard:
+

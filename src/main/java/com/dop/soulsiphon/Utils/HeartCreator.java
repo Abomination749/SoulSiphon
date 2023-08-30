@@ -32,6 +32,7 @@ public class HeartCreator {
 
     }
 
+    //Initialize materials
     private Material a;
     private Material b;
     private Material c;
@@ -45,7 +46,7 @@ public class HeartCreator {
 
     public void HeartGen() throws IOException {
 
-
+        //If Hearts and recipe are enabled
         if (main.config.getBoolean("HeartsEnabled") && main.getConfig().getBoolean("HeartRecipeEnabled")) {
 
             //Create heart item.
@@ -67,12 +68,16 @@ public class HeartCreator {
             }
             main.heart.setItemMeta(heartmeta);
 
+            //Create recipe for hearts.
             main.heartrecipe = new ShapedRecipe(main.heart);
+            //If the recipe has not been changed from the default
             if (!main.config.getBoolean("HBRB")) {
+                //Create the default recipe
                 main.heartrecipe.shape("cac", "aba", "cac");
                 main.heartrecipe.setIngredient('b', Material.TOTEM_OF_UNDYING);
                 main.heartrecipe.setIngredient('a', Material.DIAMOND);
                 main.heartrecipe.setIngredient('c', Material.NETHERITE_INGOT);
+                //Save keys to config because it uses a weird system.
                 main.config.set("CRKeys.a", Material.TOTEM_OF_UNDYING.toString());
                 main.config.set("CRKeys.b", Material.DIAMOND.toString());
                 main.config.set("CRKeys.c", Material.NETHERITE_INGOT.toString());
@@ -81,11 +86,13 @@ public class HeartCreator {
                 try {
                     main.config.save(new File(main.getDataFolder(), "configuration.yml"));
                 } catch (IOException e) {
-                    System.out.println(main.prefix + " An error occurred while saving the configuration!");
                     e.printStackTrace();
                 }
 
             } else {
+                //If the recipe has been changed before
+
+                //If the config materials are not equal to null, set them to their material names.
                 if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {a = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
                 if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {b = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
                 if (Material.getMaterial(main.config.getString("CRKeys.a")) != null) {c = (Material) Material.getMaterial(main.config.getString("CRKeysB.a"));}
@@ -103,7 +110,7 @@ public class HeartCreator {
                 StringBuilder dfgBuilder = new StringBuilder();
                 StringBuilder hijBuilder = new StringBuilder();
 
-                // Populate the groups based on material presence
+                // Populate the groups based on material presence.
                 for (String key : keys) {
                     String materialName = main.config.getString("CRKeys." + key);
                     if (materialName != null && materialName.equals("air")) {
@@ -133,9 +140,10 @@ public class HeartCreator {
                 String dfg = dfgBuilder.toString().trim();
                 String hij = hijBuilder.toString().trim();
 
-                // Use the variables abc, dfg, hij in the shape
+                // Create recipe shape.
                 main.heartrecipe.shape(abc, dfg, hij);
 
+                //If the material is not air, place it into the shape.
                 if (abc.contains("a")) {main.heartrecipe.setIngredient('a', new RecipeChoice.ExactChoice(new ItemStack(a)));}
                 if (abc.contains("b")) {main.heartrecipe.setIngredient('b', new RecipeChoice.ExactChoice(new ItemStack(b)));}
                 if (abc.contains("c")) {main.heartrecipe.setIngredient('c', new RecipeChoice.ExactChoice(new ItemStack(c)));}
@@ -145,6 +153,8 @@ public class HeartCreator {
                 if (hij.contains("h")) {main.heartrecipe.setIngredient('h', new RecipeChoice.ExactChoice(new ItemStack(h)));}
                 if (hij.contains("i")) {main.heartrecipe.setIngredient('i', new RecipeChoice.ExactChoice(new ItemStack(i)));}
                 if (hij.contains("j")) {main.heartrecipe.setIngredient('j', new RecipeChoice.ExactChoice(new ItemStack(j)));}
+
+               //Add recipe.
                 main.heartrecipe.setCategory(CraftingBookCategory.MISC);
                 Bukkit.addRecipe(main.heartrecipe);
 

@@ -41,7 +41,7 @@ public class OnPlayerClick implements Listener {
     @EventHandler
     public void PlayerClick(InventoryClickEvent e) {
 
-        if (e.getView().getTitle().equals(ChatColor.AQUA.toString() + "Heart Recipe GUI") && main.config.getBoolean("HeartsEnabled") && main.config.getBoolean("HeartRecipeEnabled")) {
+        if (e.getView().getTitle().equals(main.HeartGUIName) && main.config.getBoolean("HeartsEnabled") && main.config.getBoolean("HeartRecipeEnabled")) {
 
             if (e.getRawSlot() == 11 ||e.getRawSlot() == 12 || e.getRawSlot() == 13 || e.getRawSlot() == 20 || e.getRawSlot() == 21 || e.getRawSlot() == 22 || e.getRawSlot() == 29 || e.getRawSlot() == 30 || e.getRawSlot() == 31 || e.getRawSlot() == 44) {
 
@@ -110,7 +110,7 @@ public class OnPlayerClick implements Listener {
 
                     e.getWhoClicked().closeInventory();
 
-                    e.getWhoClicked().sendMessage(prefix + " Recipe saved! Due to Spigot API restrictions, a server restart is required to enable the recipe...");
+                    e.getWhoClicked().sendMessage(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("RecipeSaved")));
 
                     e.setCancelled(true);
                 }
@@ -118,7 +118,7 @@ public class OnPlayerClick implements Listener {
                 e.setCancelled(true);
             }
 
-        } else if (e.getView().getTitle().equals(ChatColor.AQUA.toString() + "Beacon Recipe GUI") && main.config.getBoolean("BeaconsEnabled")) {
+        } else if (e.getView().getTitle().equals(main.BeaconGUIName) && main.config.getBoolean("BeaconsEnabled")) {
             if (e.getRawSlot() == 11 ||e.getRawSlot() == 12 || e.getRawSlot() == 13 || e.getRawSlot() == 20 || e.getRawSlot() == 21 || e.getRawSlot() == 22 || e.getRawSlot() == 29 || e.getRawSlot() == 30 || e.getRawSlot() == 31 || e.getRawSlot() == 44) {
 
 
@@ -217,7 +217,7 @@ public class OnPlayerClick implements Listener {
 
                     e.getWhoClicked().closeInventory();
 
-                    e.getWhoClicked().sendMessage(prefix + " Recipe saved! Due to Spigot API restrictions, a server restart is required to enable the recipe...");
+                    e.getWhoClicked().sendMessage(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("RecipeSaved")));
 
                     e.setCancelled(true);
                 }

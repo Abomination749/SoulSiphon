@@ -134,6 +134,12 @@ ReviveSpawn:
   y: 60
   z: 0
 
+#Should players be able to use the leaderboard command? default: true
+LeaderboardEnabled: true
+
+#Number of spots on the leaderboard
+LeaderboardSpots: 10
+
 ###############################
 #	    Admin Settings        #
 ###############################
@@ -151,12 +157,6 @@ FullResetCommand: true
 
 #Is the final death message enabled? Default: true
 DeathMessageEnabled: true
-
-#Death message prefix.
-DeathMessagePrefix: "[SoulSiphon]"
-
-#Death message.
-DeathMessage: "has lost their last heart!"
 
 ##################
 #     Effects	 #

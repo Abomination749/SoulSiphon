@@ -43,11 +43,11 @@ public class ResetLivesCMD implements CommandExecutor {
 
 
                                     main.health.put(p.getUniqueId(), main.startingmaxhealth);
-                                    commandSender.sendMessage(prefix + " Reset player's hearts!");
+                                    commandSender.sendMessage(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("ResetHearts")));
                                     main.modifybl.set(p.getUniqueId().toString(), "NA");
                                     p.setGameMode(GameMode.SURVIVAL);
                                     p.teleport(spawn);
-                                    p.sendMessage(prefix + " Your lives have been reset!");
+                                    p.sendMessage(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("ResetHearts")));
                                     try {
                                         main.modifybl.save(main.banlist);
                                     } catch (IOException e) {
@@ -57,7 +57,7 @@ public class ResetLivesCMD implements CommandExecutor {
 
                                 } else if (!args[0].equals("all")) {
 
-                                    commandSender.sendMessage(prefix + " Player returned null!");
+                                    commandSender.sendMessage(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("NullPlayer")));
 
 
                                 }
@@ -68,7 +68,7 @@ public class ResetLivesCMD implements CommandExecutor {
                             if (p != null && !args[0].equals("all")) {
 
                                 main.health.put(Bukkit.getPlayer(args[0]).getUniqueId(), main.startingmaxhealth);
-                                commandSender.sendMessage(prefix + " Reset player's hearts!");
+                                commandSender.sendMessage(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("ResetHearts")));
                                 main.modifybl.set(p.getUniqueId().toString(), "NA");
                                 p.setGameMode(GameMode.SURVIVAL);
                                 p.teleport(spawn);
@@ -80,14 +80,14 @@ public class ResetLivesCMD implements CommandExecutor {
 
                             } else if (!args[0].equals("all")) {
 
-                                commandSender.sendMessage(prefix + " Player returned null!");
+                                commandSender.sendMessage(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("NullPlayer")));
 
 
                             }
                         }
                     } else {
 
-                        System.out.println(prefix + " This player is not in the banlist! Reseting lives...");
+                        System.out.println(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("NotInBanList")));
                         if (Bukkit.getPlayer(args[0]) != null) {
 
                             main.health.put(Bukkit.getPlayer(args[0]).getUniqueId(), main.startingmaxhealth);
@@ -104,7 +104,7 @@ public class ResetLivesCMD implements CommandExecutor {
                             }
 
                         } else {
-                            System.out.println(prefix + " Player returned null! are they online?");
+                            System.out.println(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("NullPlayer")));
                         }
 
                     }
@@ -121,8 +121,8 @@ public class ResetLivesCMD implements CommandExecutor {
                                 main.health.put(o.getUniqueId(), main.startingmaxhealth);
                                 Bukkit.getBanList(BanList.Type.NAME).pardon(o.getName());
                                 o.teleport(spawn);
-                                System.out.println(prefix + " reset hearts of" + o.getName());
-                                o.sendMessage(prefix + " Your lives have been reset!");
+                                System.out.println(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("MedHeartReset")) + " " + o.getName());
+                                o.sendMessage(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("ResetHeartsMSG")));
 
                             }
 
@@ -139,7 +139,7 @@ public class ResetLivesCMD implements CommandExecutor {
                                         Bukkit.getBanList(BanList.Type.NAME).pardon(of.getName());
                                     }
                                     main.modifybl.set(of.getUniqueId().toString(), "TBC");
-                                    System.out.println(prefix + " reset hearts of" + of.getName());
+                                    System.out.println(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("MedHeartReset")) + " " + of.getName());
 
                                 }
 
@@ -149,7 +149,7 @@ public class ResetLivesCMD implements CommandExecutor {
 
                         main.banlist.delete();
 
-                        System.out.println(prefix + " Completely reset hearts! Please now reload the server.");
+                        System.out.println(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("ResetAllHearts")));
                     }
 
 
@@ -170,7 +170,7 @@ public class ResetLivesCMD implements CommandExecutor {
 
                         OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
                         main.health.put(Bukkit.getPlayer(args[0]).getUniqueId(), main.startingmaxhealth);
-                        commandSender.sendMessage(prefix + " Reset player's hearts!");
+                        commandSender.sendMessage(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("ResetHearts")));
                         main.modifybl.set(p.getUniqueId().toString(), "TBC");
                         try {
                             main.modifybl.save(main.banlist);
@@ -183,7 +183,7 @@ public class ResetLivesCMD implements CommandExecutor {
 
                         OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
                         main.health.put(p.getUniqueId(), main.startingmaxhealth);
-                        commandSender.sendMessage(prefix + " Reset player's hearts!");
+                        commandSender.sendMessage(prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("ResetHearts")));
                         main.modifybl.set(p.getUniqueId().toString(), "TBCFR");
 
 

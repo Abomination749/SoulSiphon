@@ -60,11 +60,11 @@ public class AdminCMD implements CommandExecutor {
                                         throw new RuntimeException(e);
                                     }
                         main.reloadConfig();
-                        player.sendMessage(main.prefix + " Spawn set to " + location.getX() + " " + location.getY() + " " + location.getZ() + " in world " + location.getWorld().getName());
+                        player.sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("SpawnSet1")) + " " + location.getX() + " " + location.getY() + " " + location.getZ() + " " + main.lang.getString("SpawnSet2") + " " + location.getWorld().getName());
                     }
                 } else {
 
-                    System.out.println(main.prefix + " Command cannot be run from console!");
+                    System.out.println(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("CantBeRunHere")));
 
                 }
 
@@ -74,22 +74,17 @@ public class AdminCMD implements CommandExecutor {
                 if (commandSender instanceof Player) {
                     if (commandSender.hasPermission("soulsteal.reload")) {
                         main.reloadConfig();
-                        commandSender.sendMessage(main.prefix + " Config reloaded!");
+                        commandSender.sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("ConfigReloaded")));
                         if (main.config.getBoolean("HeartRecipeEnabled") && main.config.getBoolean("HeartsEnabled")) {
 
                             main.heartrecipe.setCategory(CraftingBookCategory.MISC);
                             Bukkit.addRecipe(main.heartrecipe);
 
 
-                        } else {
-
-                            if (Bukkit.getRecipe(main.key) != null) {
-                                Bukkit.removeRecipe(main.key);
-                            }
                         }
                     }
                 } else {
-                    System.out.println(main.prefix + " Config reloaded!");
+                    System.out.println(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("ConfigReloaded")));
                     main.reloadConfig();
                     if (main.config.getBoolean("HeartRecipeEnabled") && main.config.getBoolean("HeartsEnabled")) {
 
@@ -97,11 +92,6 @@ public class AdminCMD implements CommandExecutor {
                         Bukkit.addRecipe(main.heartrecipe);
 
 
-                    } else {
-
-                        if (Bukkit.getRecipe(main.key) != null) {
-                            Bukkit.removeRecipe(main.key);
-                        }
                     }
                 }
 
@@ -115,7 +105,7 @@ public class AdminCMD implements CommandExecutor {
                     }
                 } else {
 
-                    System.out.println(main.prefix + " You can't run this here!");
+                    System.out.println(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("CantBeRunHere")));
 
                 }
 
@@ -127,26 +117,27 @@ public class AdminCMD implements CommandExecutor {
 
 
                 if (commandSender instanceof Player) {
-                    commandSender.sendMessage(ChatColor.RED + "Soul Siphon" +
-                            "\n" + ChatColor.RESET + "soulsiphon withdraw <number> - Withdraws a number of hearts." +
-                            "\n soulsiphon setrevivespawn - sets the revive spawn to where you are standing." +
-                            "\n soulsiphon resetlives <username/all> - resets the lives of one or every player." +
-                            "\n soulsiphon config <key> <value> - changes a config value." +
-                            "\n soulsiphon reload - restarts the config" +
-                            "\n soulsiphon give <number> - gives heart items." +
-                            "\n soulsiphon help - sends this message." +
-                            "\n soulsiphon savehl - saves the heartlist. (This is done automatically on server stop!)");
+                    commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Header")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Withdraw")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.SetReviveSpawn")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.ResetLives")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Config")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Reload")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Give")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Help")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.SaveHL")));
 
 
                 } else {
-                    System.out.println(ChatColor.RED + "Soul Siphon" +
-                            "\n" + ChatColor.RESET + "soulsiphon withdraw <number> - Withdraws a number of hearts." +
-                            "\n soulsiphon setrevivespawn - sets the revive spawn to where you are standing." +
-                            "\n soulsiphon resetlives <username/all> - resets the lives of one or every player." +
-                            "\n soulsiphon config <key> <value> - changes a config value." +
-                            "\n soulsiphon reload - restarts the config" +
-                            "\n soulsiphon give <number> - gives heart items." +
-                            "\n soulsiphon help - sends this message.");
+                    commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Header")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Withdraw")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.SetReviveSpawn")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.ResetLives")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Config")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Reload")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Give")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Help")) +
+                            "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.SaveHL")));
                 }
 
             }else if (args[0].equalsIgnoreCase("SaveHL")) {
@@ -164,7 +155,6 @@ public class AdminCMD implements CommandExecutor {
                 try {
                     main.modifyhl.save(main.heartslist);
                 } catch (IOException ex) {
-                    System.out.println(main.prefix + " An issue occurred with saving heartslist.yml!");
                     return false;
                 }
             } else if (args[0].equalsIgnoreCase("heartrecipegui")) {
@@ -174,10 +164,11 @@ public class AdminCMD implements CommandExecutor {
                     ItemStack save = new ItemStack(Material.NETHER_STAR);
                     ItemMeta savem = save.getItemMeta();
                     ItemStack border = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
-                    savem.setDisplayName("Save");
+                    savem.setDisplayName(ChatColor.translateAlternateColorCodes('&', main.lang.getString("SaveItemName")));
                     save.setItemMeta(savem);
 
-                    Inventory inv = Bukkit.createInventory((InventoryHolder) commandSender, 45, ChatColor.AQUA.toString() + "Heart Recipe GUI");
+                    Inventory inv = Bukkit.createInventory((InventoryHolder) commandSender, 45, ChatColor.translateAlternateColorCodes('&', main.lang.getString("HeartGUI")));
+
 
                     for (int i : new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 16, 17, 18, 19, 23, 24, 25, 26, 27, 28, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43}) {
 
@@ -197,10 +188,10 @@ public class AdminCMD implements CommandExecutor {
                     ItemStack save = new ItemStack(Material.NETHER_STAR);
                     ItemMeta savem = save.getItemMeta();
                     ItemStack border = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
-                    savem.setDisplayName("Save");
+                    savem.setDisplayName(ChatColor.translateAlternateColorCodes('&', main.lang.getString("SaveItemName")));
                     save.setItemMeta(savem);
 
-                    Inventory inv = Bukkit.createInventory((InventoryHolder) commandSender, 45, ChatColor.AQUA.toString() + "Beacon Recipe GUI");
+                    Inventory inv = Bukkit.createInventory((InventoryHolder) commandSender, 45, ChatColor.translateAlternateColorCodes('&', main.lang.getString("BeaconGUI")));
 
                     for (int i : new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 16, 17, 18, 19, 23, 24, 25, 26, 27, 28, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43}) {
 
@@ -216,9 +207,9 @@ public class AdminCMD implements CommandExecutor {
             } else {
 
                 if (commandSender instanceof Player) {
-                    commandSender.sendMessage(main.prefix + " Invalid usage!");
+                    commandSender.sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("InvalidUsage")));
                 } else {
-                    System.out.println(main.prefix + " Invalid usage!");
+                    System.out.println(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("InvalidUsage")));
                 }
 
             }
@@ -248,21 +239,21 @@ public class AdminCMD implements CommandExecutor {
                             }
 
                         } else {
-                            player.sendMessage(main.prefix + " You did not input a number!");
+                            player.sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("NotANumber")));
                         }
 
                 } else {
 
-                    System.out.println(main.prefix + " You cannot run this here!");
+                    System.out.println(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("CantBeRunHere")));
 
                 }
 
             } else {
 
                 if (commandSender instanceof Player) {
-                    commandSender.sendMessage(main.prefix + " Invalid usage!");
+                    commandSender.sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("InvalidUsage")));
                 } else {
-                    System.out.println(main.prefix + " Invalid usage!");
+                    System.out.println(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("InvalidUsage")));
                 }
 
             }
@@ -284,7 +275,7 @@ public class AdminCMD implements CommandExecutor {
                                 }
 
                             } else {
-                                player.sendMessage(main.prefix + " You did not input a number!");
+                                player.sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("NotANumber")));
                             }
 
                     }
@@ -336,9 +327,9 @@ public class AdminCMD implements CommandExecutor {
                     main.reloadConfig();
 
                     if (commandSender instanceof Player) {
-                        commandSender.sendMessage(main.prefix + " Config successfully changed!");
+                        commandSender.sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("ConfigChanged")));
                     } else {
-                        System.out.println(main.prefix + " Config successfully changed!");
+                        System.out.println(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("ConfigChanged")));
                     }
 
                 }
@@ -346,9 +337,9 @@ public class AdminCMD implements CommandExecutor {
             } else {
 
                 if (commandSender instanceof Player) {
-                    commandSender.sendMessage(main.prefix + " Invalid usage!");
+                    commandSender.sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("InvalidUsage")));
                 } else {
-                    System.out.println(main.prefix + " Invalid usage!");
+                    System.out.println(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("InvalidUsage")));
                 }
 
             }
@@ -356,33 +347,33 @@ public class AdminCMD implements CommandExecutor {
         } else if (args.length == 0) {
 
             if (commandSender instanceof Player) {
-                commandSender.sendMessage(ChatColor.RED + "Soul Siphon" +
-                        "\n" + ChatColor.RESET + "soulsiphon withdraw <number> - Withdraws a number of hearts." +
-                        "\n soulsiphon setrevivespawn - sets the revive spawn to where you are standing." +
-                        "\n soulsiphon resetlives <username/all> - resets the lives of one or every player." +
-                        "\n soulsiphon config <key> <value> - changes a config value." +
-                        "\n soulsiphon reload - restarts the config" +
-                        "\n soulsiphon give <number> - gives heart items." +
-                        "\n soulsiphon help - sends this message." +
-                        "\n soulsiphon savehl - saves the heartlist. (This is done automatically on server stop!)");
+                commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Header")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Withdraw")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.SetReviveSpawn")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.ResetLives")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Config")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Reload")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Give")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Help")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.SaveHL")));
             } else {
-                System.out.println(ChatColor.RED + "Soul Siphon" +
-                        "\n" + ChatColor.RESET + "soulsiphon withdraw <number> - Withdraws a number of hearts." +
-                        "\n soulsiphon setrevivespawn - sets the revive spawn to where you are standing." +
-                        "\n soulsiphon resetlives <username/all> - resets the lives of one or every player." +
-                        "\n soulsiphon config <key> <value> - changes a config value." +
-                        "\n soulsiphon reload - restarts the config" +
-                        "\n soulsiphon give <number> - gives heart items." +
-                        "\n soulsiphon help - sends this message." +
-                        "\n soulsiphon savehl - saves the heartlist. (This is done automatically on server stop!)");
+                System.out.println(ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Header")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Withdraw")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.SetReviveSpawn")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.ResetLives")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Config")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Reload")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Give")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.Help")) +
+                        "\n" + ChatColor.translateAlternateColorCodes('&', main.lang.getString("Help.SaveHL")));
             }
 
         } else {
 
             if (commandSender instanceof Player) {
-                commandSender.sendMessage(main.prefix + " Invalid usage!");
+                commandSender.sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("InvalidUsage")));
             } else {
-                System.out.println(main.prefix + " Invalid usage!");
+                System.out.println(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("InvalidUsage")));
             }
 
         }

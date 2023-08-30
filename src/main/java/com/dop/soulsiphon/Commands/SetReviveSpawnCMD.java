@@ -1,6 +1,7 @@
 package com.dop.soulsiphon.Commands;
 
 import com.dop.soulsiphon.Main;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,11 +37,11 @@ public class SetReviveSpawnCMD implements CommandExecutor {
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
-                player.sendMessage(main.prefix + " Spawn set to " + location.getX() + " " + location.getY() + " " + location.getZ() + " in world " + location.getWorld().getName());
+                player.sendMessage(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', ChatColor.translateAlternateColorCodes('&', main.lang.getString("SpawnSet1")) + " " + location.getX() + " " + location.getY() + " " + location.getZ() + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("SpawnSet2")) + " " + location.getWorld().getName()));
             }
         } else {
 
-            System.out.println(main.prefix + " Command cannot be run from console!");
+            System.out.println(main.prefix + " " + ChatColor.translateAlternateColorCodes('&', main.lang.getString("CantBeRunHere")));
 
         }
 

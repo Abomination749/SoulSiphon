@@ -8,6 +8,7 @@ com\dop\soulsiphon\Listeners\OnPlayerRespawn.class
 com\dop\soulsiphon\Bstats\Metrics$1.class
 com\dop\soulsiphon\Bstats\Metrics$DrilldownPie.class
 com\dop\soulsiphon\Bstats\Metrics$AdvancedBarChart.class
+com\dop\soulsiphon\Commands\LeaderboardCMD.class
 com\dop\soulsiphon\Bstats\Metrics$MultiLineChart.class
 com\dop\soulsiphon\Utils\BeaconCreator.class
 com\dop\soulsiphon\Utils\DefaultConfig.class
