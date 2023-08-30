@@ -60,6 +60,11 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        //Creating data folder. The custom YAML files won't do it automatically.
+        if(!getDataFolder().exists()) {
+            getDataFolder().mkdirs();
+        }
+
         //Create language.yml + defaults
         if (!langfile.exists()) {
             try {
@@ -78,11 +83,6 @@ public class Main extends JavaPlugin {
         //Auto updater stuff.
         int ID = 112281;
         Updater updater = new Updater(this, ID, this.getFile(), Updater.UpdateType.CHECK_DOWNLOAD, false);
-
-        //Creating data folder. The custom YAML files won't do it automatically.
-        if(!getDataFolder().exists()) {
-            getDataFolder().mkdirs();
-        }
 
         //Bstats Stuff
         int pluginId = 19424;
