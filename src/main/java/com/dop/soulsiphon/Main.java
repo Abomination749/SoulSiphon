@@ -63,7 +63,7 @@ public class Main extends JavaPlugin {
         //Create language.yml + defaults
         if (!langfile.exists()) {
             try {
-                configfile.createNewFile();
+                langfile.createNewFile();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

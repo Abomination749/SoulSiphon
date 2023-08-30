@@ -6,7 +6,7 @@
 
     <groupId>com.DOP</groupId>
     <artifactId>SoulSiphon</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3-dev</version>
     <packaging>jar</packaging>
 
     <name>SoulSiphon</name>
